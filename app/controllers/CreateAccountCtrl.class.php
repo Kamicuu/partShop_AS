@@ -12,10 +12,16 @@ use core\ParamUtils;
 class CreateAccountCtrl {
     
     function __construct() {
-
-        $this->userSesion = new \app\dataObjects\SessionData();
-        $this->userSesion->username = 'Gość';
-        $this->userSesion->role = 'guest';
+        
+       $this->userSesion = SessionUtils::loadObject('uzytkownik', true);
+       
+       if(is_null($this->userSesion)){
+           $this->userSesion = new \app\dataObjects\SessionData();
+           $this->userSesion->username = 'Gość';
+           $this->userSesion->role = 'guest';
+       }else{
+            App::getRouter()->redirectTo('main');
+       }
                   
     }
 
@@ -37,8 +43,8 @@ class CreateAccountCtrl {
        $this->client->nazwisko = ParamUtils::getFromPost("nazwisko-input",true,"Nie podano nazwiska");
        $this->client->kod_pocztowy = ParamUtils::getFromPost("kod_pocztowy-input",true,"Nie podano kodu pocztowego");
        $this->client->miasto = ParamUtils::getFromPost("miasto-input",true,"Nie podano miasta");
-       $this->client->ulica =  ParamUtils::getFromPost("ulica-input",true,"Nie podano ulicy");
-       $this->client->numer_lokalu =  ParamUtils::getFromPost("numer_lok-input",true,"Nie podano numeru lokalu");
+       $this->client->ulica = ParamUtils::getFromPost("ulica-input",true,"Nie podano ulicy");
+       $this->client->numer_lokalu = ParamUtils::getFromPost("numer_lok-input",true,"Nie podano numeru lokalu");
        
           
        $this->user->login = ParamUtils::getFromPost("username-input",true,"Nie podano loginu");
@@ -118,7 +124,7 @@ class CreateAccountCtrl {
         $specialChars = preg_match('@[^\w]@', $data->kod_pocztowy);
   
         if(strlen($data->kod_pocztowy)>10 || strlen($data->kod_pocztowy)<5  || $uppercase || $lowercase || $specialChars){
-            App::getMessages()->addMessage(new Message("Format kodu pocztowego nieprawidłowy - dozwolone do 10 cyfr (bez myślnika)", Message::ERROR));            
+            App::getMessages()->addMessage(new Message("Format kodu pocztowego nieprawidłowy - dozwolone od 5 do 10 cyfr (bez myślnika)", Message::ERROR));            
         }
         
         $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);

@@ -3,9 +3,17 @@
 
 <head>
  <meta charset="utf-8"/>
- <title>Nowa akcja | Amelia framework</title>
+ <title>PartShop.pl - strona główna</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ <style>
+    #alert_box{
+        height: 30px;
+    }
+    .small_text{
+        font-size: .92rem
+    }
+ </style>
 </head>
 
 <body>
@@ -27,26 +35,43 @@
                 {$userSesion->username}
               </a>
                 {if $userSesion->role eq 'guest'}
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">Zaloguj</a></li>
-                    <li><a class="dropdown-item" href="{$conf->app_root}/createAccount">Utwórz konto</a></li>
-                </ul>
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_guest.tpl"}
                 {elseif $userSesion->role eq 'admin'}
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_admin.tpl"}
+                {elseif $userSesion->role eq 'user'}
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_user.tpl"}
                 {/if}
-
             </div>
+            
           </div>
         </div>
     </header>
     <main>
-        
+        <div class="row justify-content-center" id="alert_box">
+            {include file="`$smarty.current_dir`\\templates\Alert.tpl"}
+        </div>
+        <section class="container py-5 d-flex">
+            <div clas="row w-75">
+                <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
+                <hr>
+                <form id="carSelectionForm"></form>
+                <form id="searchProducers" action="/post/dispatch/delete" method="post"></form>
+                <div>
+                    <div class="mb-2 px-1 fw-light small_text">Wybierz markę pojazdu</div>
+                    <select class="form-select form-select-sm" size="5" aria-label="size 5 select example" form="carSelectionForm">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <div class="mt-1 input-group">
+                        <input form="searchProducers" type="text" class="form-control form-control-sm col" id="producer-input" name="producer-input" placeholder="Filtruj marki">
+                        <button form="searchProducers" class="btn btn-outline-secondary" type="submit" id="button-search_producers">Wyszukaj</button>
+                    <div>
+                </div>
+            </div>
+
+        </section> 
     </main>
  </body>
 

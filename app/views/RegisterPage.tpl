@@ -3,9 +3,14 @@
 
 <head>
  <meta charset="utf-8"/>
- <title>Nowa akcja | Amelia framework</title>
+ <title>PartShop.pl - rejestracja użytkownika</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ <style>
+    #alert_box{
+        height: 30px;
+    }
+ </style>
 </head>
 
 <body>
@@ -27,41 +32,25 @@
                 {$userSesion->username}
               </a>
                 {if $userSesion->role eq 'guest'}
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">Zaloguj</a></li>
-                    <li><a class="dropdown-item" href="{$conf->app_root}/createAccount">Utwórz konto</a></li>
-                </ul>
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_guest.tpl"}
                 {elseif $userSesion->role eq 'admin'}
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_admin.tpl"}
+                {elseif $userSesion->role eq 'user'}
+                    {include file="`$smarty.current_dir`\\templates\Dropdown_menu_user.tpl"}
                 {/if}
-
             </div>
           </div>
         </div>
     </header>
     <main>
-        {foreach $msgs->getMessages() as $msg}
-        <div class="alert alert-dismissible fade show {if $msg->isInfo()}alert-success{/if}
-                   {if $msg->isWarning()}alert-warning{/if}
-                   {if $msg->isError()}alert-danger{/if}" 
-                   role="alert">
-            {$msg->text}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="row justify-content-center" id="alert_box">
+            {include file="`$smarty.current_dir`\\templates\Alert.tpl"}
         </div>
-        
-        {/foreach}
-        
         <section class="container py-5 d-flex justify-content-center">
             <div class="row w-75">
                 <div class="col">
                    <h4 class="mb-4">Formularz rejestracji</h4>
-                   <form method="post" action="./registerNewUser">
+                   <form method="post" action="{$conf->app_root}/registerNewUser">
                     <h6>Dane podstawowe:</h6>
                     <hr>
                     <div class="row mb-2">
@@ -137,7 +126,7 @@
                     <div class="row mt-4">
                         <div class="col"></div>
                         <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary ">Wyślij</button>
+                            <button type="submit" class="btn btn-primary ">Utwórz użytkownika</button>
                         </div>
                     </div>
                   </form>

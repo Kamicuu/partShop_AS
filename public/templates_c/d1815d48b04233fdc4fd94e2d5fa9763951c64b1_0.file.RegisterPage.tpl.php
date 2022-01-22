@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-22 13:40:51
+/* Smarty version 3.1.33, created on 2022-01-22 16:46:24
   from 'D:\ROZNE\projekt_AS\app\views\RegisterPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61ec0963107e23_22903531',
+  'unifunc' => 'content_61ec34e0a038d2_11137517',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd1815d48b04233fdc4fd94e2d5fa9763951c64b1' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\RegisterPage.tpl',
-      1 => 1642858849,
+      1 => 1642869921,
       2 => 'file',
     ),
   ),
@@ -20,17 +20,22 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ec0963107e23_22903531 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61ec34e0a038d2_11137517 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
 <head>
  <meta charset="utf-8"/>
- <title>Nowa akcja | Amelia framework</title>
+ <title>PartShop.pl - rejestracja użytkownika</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"><?php echo '</script'; ?>
 >
+ <style>
+    #alert_box{
+        height: 30px;
+    }
+ </style>
 </head>
 
 <body>
@@ -54,55 +59,30 @@ function content_61ec0963107e23_22903531 (Smarty_Internal_Template $_smarty_tpl)
 
               </a>
                 <?php if ($_smarty_tpl->tpl_vars['userSesion']->value->role == 'guest') {?>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">Zaloguj</a></li>
-                    <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
-/createAccount">Utwórz konto</a></li>
-                </ul>
+                    <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Dropdown_menu_guest.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
                 <?php } elseif ($_smarty_tpl->tpl_vars['userSesion']->value->role == 'admin') {?>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
+                    <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Dropdown_menu_admin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
+                <?php } elseif ($_smarty_tpl->tpl_vars['userSesion']->value->role == 'user') {?>
+                    <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Dropdown_menu_user.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+?>
                 <?php }?>
-
             </div>
           </div>
         </div>
     </header>
     <main>
-        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['msgs']->value->getMessages(), 'msg');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['msg']->value) {
+        <div class="row justify-content-center" id="alert_box">
+            <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Alert.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
-        <div class="alert alert-dismissible fade show <?php if ($_smarty_tpl->tpl_vars['msg']->value->isInfo()) {?>alert-success<?php }?>
-                   <?php if ($_smarty_tpl->tpl_vars['msg']->value->isWarning()) {?>alert-warning<?php }?>
-                   <?php if ($_smarty_tpl->tpl_vars['msg']->value->isError()) {?>alert-danger<?php }?>" 
-                   role="alert">
-            <?php echo $_smarty_tpl->tpl_vars['msg']->value->text;?>
-
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        
-        <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-        
-        <div class="alert alert-dismissible fade show alert-success">
-                  DDDD
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        
         <section class="container py-5 d-flex justify-content-center">
             <div class="row w-75">
                 <div class="col">
                    <h4 class="mb-4">Formularz rejestracji</h4>
-                   <form method="post" action="./registerNewUser">
+                   <form method="post" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/registerNewUser">
                     <h6>Dane podstawowe:</h6>
                     <hr>
                     <div class="row mb-2">
@@ -186,7 +166,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="row mt-4">
                         <div class="col"></div>
                         <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary ">Wyślij</button>
+                            <button type="submit" class="btn btn-primary ">Utwórz użytkownika</button>
                         </div>
                     </div>
                   </form>
