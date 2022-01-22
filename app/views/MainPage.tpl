@@ -24,14 +24,14 @@
 
             <div class="dropdown text-end">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                {$user->username}
+                {$userSesion->username}
               </a>
-                {if $user->role eq 'guest'}
+                {if $userSesion->role eq 'guest'}
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">Zaloguj</a></li>
                     <li><a class="dropdown-item" href="{$conf->app_root}/createAccount">Utwórz konto</a></li>
                 </ul>
-                {elseif $user->role eq 'admin'}
+                {elseif $userSesion->role eq 'admin'}
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">New project...</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>

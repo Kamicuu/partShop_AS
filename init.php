@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ERROR | E_WARNING | E_PARSE );
 /*
  * Framework initialization
  * - load config, messages, autoloader, router - prepare functions returning this global objects

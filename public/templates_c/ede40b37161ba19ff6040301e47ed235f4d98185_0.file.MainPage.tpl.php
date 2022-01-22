@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-22 10:41:28
+/* Smarty version 3.1.33, created on 2022-01-22 12:46:05
   from 'D:\ROZNE\projekt_AS\app\views\MainPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61ebdf587b5c68_19342588',
+  'unifunc' => 'content_61ebfc8d886070_40357199',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede40b37161ba19ff6040301e47ed235f4d98185' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\MainPage.tpl',
-      1 => 1642848071,
+      1 => 1642855315,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ebdf587b5c68_19342588 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61ebfc8d886070_40357199 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -50,16 +50,16 @@ function content_61ebdf587b5c68_19342588 (Smarty_Internal_Template $_smarty_tpl)
 
             <div class="dropdown text-end">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <?php echo $_smarty_tpl->tpl_vars['user']->value->username;?>
+                <?php echo $_smarty_tpl->tpl_vars['userSesion']->value->username;?>
 
               </a>
-                <?php if ($_smarty_tpl->tpl_vars['user']->value->role == 'guest') {?>
+                <?php if ($_smarty_tpl->tpl_vars['userSesion']->value->role == 'guest') {?>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">Zaloguj</a></li>
                     <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
 /createAccount">Utwórz konto</a></li>
                 </ul>
-                <?php } elseif ($_smarty_tpl->tpl_vars['user']->value->role == 'admin') {?>
+                <?php } elseif ($_smarty_tpl->tpl_vars['userSesion']->value->role == 'admin') {?>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">New project...</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>

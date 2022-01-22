@@ -24,14 +24,14 @@
 
             <div class="dropdown text-end">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                {$user->username}
+                {$userSesion->username}
               </a>
-                {if $user->role eq 'guest'}
+                {if $userSesion->role eq 'guest'}
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">Zaloguj</a></li>
                     <li><a class="dropdown-item" href="{$conf->app_root}/createAccount">Utwórz konto</a></li>
                 </ul>
-                {elseif $user->role eq 'admin'}
+                {elseif $userSesion->role eq 'admin'}
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     <li><a class="dropdown-item" href="#">New project...</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -46,6 +46,17 @@
         </div>
     </header>
     <main>
+        {foreach $msgs->getMessages() as $msg}
+        <div class="alert alert-dismissible fade show {if $msg->isInfo()}alert-success{/if}
+                   {if $msg->isWarning()}alert-warning{/if}
+                   {if $msg->isError()}alert-danger{/if}" 
+                   role="alert">
+            {$msg->text}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        {/foreach}
+        
         <section class="container py-5 d-flex justify-content-center">
             <div class="row w-75">
                 <div class="col">
@@ -55,41 +66,73 @@
                     <hr>
                     <div class="row mb-2">
                       <label for="email-input" class="form-label col">Adres e-mail</label>
-                      <input type="email" class="form-control form-control-sm col" id="email-input" name="email-input">
+                      <input type="email" class="form-control form-control-sm col" id="email-input" name="email-input" required value=
+                             {if empty($clientForm->email)}
+                             {else} 
+                                 {$clientForm->email}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="username-input" class="form-label col">Nazwa użytkownika</label>
-                      <input type="text" class="form-control form-control-sm col" id="username-input" name="username-input">
+                      <input type="text" class="form-control form-control-sm col" id="username-input" name="username-input" required value=
+                             {if empty($userForm->login)}
+                             {else} 
+                                 {$userForm->login}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="password-input" class="form-label col">Hasło</label>
-                      <input type="password" class="form-control form-control-sm col" id="password-input" name="password-input">
+                      <input type="password" class="form-control form-control-sm col" id="password-input" name="password-input" required>
                     </div>
                     <h6 class="mt-4">Dane do zamówienia:</h6>
                     <hr>
                     <div class="row mb-2">
                       <label for="imie-input" class="form-label col">Imię</label>
-                      <input type="text" class="form-control form-control-sm col" id="imie-input" name="imie-input">
+                      <input type="text" class="form-control form-control-sm col" id="imie-input" name="imie-input" required value=
+                             {if empty($clientForm->imie)}
+                             {else} 
+                                 {$clientForm->imie}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="nazwisko-input" class="form-label col">Nazwisko</label>
-                      <input type="text" class="form-control form-control-sm col" id="nazwisko-input" name="nazwisko-input">
+                      <input type="text" class="form-control form-control-sm col" id="nazwisko-input" name="nazwisko-input" required value=
+                             {if empty($clientForm->nazwisko)}
+                             {else} 
+                                 {$clientForm->nazwisko}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="miasto-input" class="form-label col">Miasto</label>
-                      <input type="text" class="form-control form-control-sm col" id="miasto-input" name="miasto-input">
+                      <input type="text" class="form-control form-control-sm col" id="miasto-input" name="miasto-input" required value=
+                             {if empty($clientForm->miasto)}
+                             {else} 
+                                 {$clientForm->miasto}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="kod_pocztowy-input" class="form-label col">Kod pocztowy</label>
-                      <input type="text" class="form-control form-control-sm col" id="kod_pocztowy-input" name="kod_pocztowy-input">
+                      <input type="text" class="form-control form-control-sm col" id="kod_pocztowy-input" name="kod_pocztowy-input" required value=
+                             {if empty($clientForm->kod_pocztowy)}
+                             {else} 
+                                 {$clientForm->kod_pocztowy}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="ulica-input" class="form-label col">Ulica</label>
-                      <input type="text" class="form-control form-control-sm col" id="ulica-input" name="ulica-input">
+                      <input type="text" class="form-control form-control-sm col" id="ulica-input" name="ulica-input" required value=
+                             {if empty($clientForm->ulica)}
+                             {else} 
+                                 {$clientForm->ulica}
+                             {/if}>
                     </div>
                     <div class="row mb-2">
                       <label for="numer_lok-input" class="form-label col">Numer lokalu</label>
-                      <input type="text" class="form-control form-control-sm col" id="numer_lok" name="numer_lok-input">
+                      <input type="text" class="form-control form-control-sm col" id="numer_lok" name="numer_lok-input" required value=
+                             {if empty($clientForm->numer_lokalu)}
+                             {else} 
+                                 {$clientForm->numer_lokalu}
+                             {/if}>
                     </div>
                     <div class="row mt-4">
                         <div class="col"></div>
@@ -100,9 +143,6 @@
                   </form>
                 </div>
             </div>
-            {foreach $msgs->getMessages() as $msg}
-            <p>{$msg->text}</p>
-            {/foreach}
         </section>
     </main>
  </body>

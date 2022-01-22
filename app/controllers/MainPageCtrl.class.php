@@ -12,12 +12,12 @@ class MainPageCtrl {
     
     function __construct() {
         
-       $this->user = SessionUtils::loadObject('uzytkownik');
+       $this->userSesion = SessionUtils::loadObject('uzytkownik');
        
-       if(is_null($this->user)){
-           $this->user = new \app\dataObjects\SessionData();
-           $this->user->username = 'Gość';
-           $this->user->role = 'guest';
+       if(is_null($this->userSesion)){
+           $this->userSesion = new \app\dataObjects\SessionData();
+           $this->userSesion->username = 'Gość';
+           $this->userSesion->role = 'guest';
        }
                 
     }
@@ -25,7 +25,7 @@ class MainPageCtrl {
     
     public function action_load() {
          
-        App::getSmarty()->assign("user",$this->user);  
+        App::getSmarty()->assign("userSesion",$this->userSesion);  
         App::getSmarty()->display("MainPage.tpl");
         
     }

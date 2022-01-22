@@ -13,82 +13,177 @@ class CreateAccountCtrl {
     
     function __construct() {
 
-        $this->user = new \app\dataObjects\SessionData();
-        $this->user->username = 'Gość';
-        $this->user->role = 'guest';
-          
+        $this->userSesion = new \app\dataObjects\SessionData();
+        $this->userSesion->username = 'Gość';
+        $this->userSesion->role = 'guest';
+                  
     }
 
     
     public function action_createAccount() {
          
-        App::getSmarty()->assign("user",$this->user);  
+        App::getSmarty()->assign("userSesion",$this->userSesion);  
         App::getSmarty()->display("RegisterPage.tpl");
         
     }
     
     public function action_registerNewUser() {
         
-       $user = new \app\dataObjects\UserData();
-       $client = new \app\dataObjects\ClientData();
+       $this->user = new \app\dataObjects\UserData();
+       $this->client = new \app\dataObjects\ClientData();
        
-       $client->email = ParamUtils::getFromPost("email-input",true,"Nie podano adresu e-mail");
-       $client->imie = ParamUtils::getFromPost("imie-input",true,"Nie podano imienia");
-       $client->nazwisko = ParamUtils::getFromPost("nazwisko-input",true,"Nie podano nazwiska");
-       $client->kod_pocztowy = ParamUtils::getFromPost("kod_pocztowy-input",true,"Nie podano kodu pocztowego");
-       $client->miasto = ParamUtils::getFromPost("miasto-input",true,"Nie podano miasta");
-       $client->ulica =  ParamUtils::getFromPost("ulica-input",true,"Nie podano ulicy");
-       $client->numer_lokalu =  ParamUtils::getFromPost("numer_lok-input",true,"Nie podano numeru lokalu");
+       $this->client->email = ParamUtils::getFromPost("email-input",true,"Nie podano adresu e-mail");
+       $this->client->imie = ParamUtils::getFromPost("imie-input",true,"Nie podano imienia");
+       $this->client->nazwisko = ParamUtils::getFromPost("nazwisko-input",true,"Nie podano nazwiska");
+       $this->client->kod_pocztowy = ParamUtils::getFromPost("kod_pocztowy-input",true,"Nie podano kodu pocztowego");
+       $this->client->miasto = ParamUtils::getFromPost("miasto-input",true,"Nie podano miasta");
+       $this->client->ulica =  ParamUtils::getFromPost("ulica-input",true,"Nie podano ulicy");
+       $this->client->numer_lokalu =  ParamUtils::getFromPost("numer_lok-input",true,"Nie podano numeru lokalu");
        
-       App::getMessages()->addMessage(new Message("Dupachuj", Message::INFO));
+          
+       $this->user->login = ParamUtils::getFromPost("username-input",true,"Nie podano loginu");
+       $this->user->haslo = ParamUtils::getFromPost("password-input",true,"Nie podano hasła");
+       $this->user->rola = 'user';
        
-       $this->test();
        
-//       $clientId = $this->addClientToDatabase($client);
-//         
-//       $user->login = ParamUtils::getFromPost("username-input",true,"Nie podano loginu");
-//       $user->haslo = ParamUtils::getFromPost("password-input",true,"Nie podano hasła");
-//       $user->rola = 'user';
-//       $user->id_klient = $clientId;
-//       
-//       $this->addUserToDatabase($user);
        
+       if($this->validateClient($this->client) && $this->validateUser($this->user)){
+           
+           try {
+                
+            $clientId = $this->addClientToDatabase($this->client);
+            $this->user->id_klient = $clientId;
+            $this->addUserToDatabase($this->user);
+            
+            App::getMessages()->addMessage(new Message("Konto zostało utworzone", Message::INFO));
+            $this->user = null;
+            $this->client = null;
+            $this->returnViev();
+               
+           } catch (Exception $exc) {
+                App::getMessages()->addMessage(new Message("Wystąpił nieznany błąd", Message::ERROR));
+                $this->returnViev();
+           }
+
+          
+       }else  $this->returnViev();
+        
     }
     
-//    private function addUserToDatabase($data) {
-//        
-//        $db = App::getDB();
-//        
-//        $db->insert('uzytkownik', ['Id'=>NULL, 
-//            'Login'=>$data->login, 
-//            'Haslo'=>$data->haslo, 
-//            "Rola"=>$data->rola,
-//            "Id_klient"=>$data->id_klient]);
-//        
-//        
-//    }
-//    
-//    private function addClientToDatabase($data) {
-//        
-//        $db = App::getDB();
-//        
-//        $db->insert('klient', ['Id'=>NULL, 
-//            'Imie'=>$data->imie, 
-//            'Nazwisko'=>$data->nazwisko, 
-//            'E-mail'=>$data->email, 
-//            'Miasto'=>$data->miasto, 
-//            'Ulica'=>$data->ulica, 
-//            'Numer_lokalu'=>$data->numer_lokalu, 
-//            'Kod_pocztowy'=>$data->kod_pocztowy]);
-//        
-//        return $db->id();
-//           
-//    }
-    
-    private function test(){
+     private function validateUser($data){
+         
+        $db = App::getDB();
+         
+        if(!is_null($db->select('uzytkownik', 'Login', ['Login'=>$data->login])[0])){
+            App::getMessages()->addMessage(new Message("Użytkownik o podanym loginie już istnieje", Message::ERROR));
+        }
         
+        if(strlen($data->login)<4 || strlen($data->login)>45){
+            App::getMessages()->addMessage(new Message("Długość loginu nieprawidłowa - dozwolone od 5 do 45 znaków", Message::ERROR));            
+        }
+        
+        $number = preg_match('@[0-9]@', $data->haslo);
+        $lowercase = preg_match('@[a-z]@', $data->haslo);
+        $lenght = strlen($data->haslo);
+        
+        if(!$number || !$lowercase || $lenght<8 || $lenght>45){
+            App::getMessages()->addMessage(new Message("Hasło nie spełnia wymogów bezpieczeństwa - a-z, 0-9, od 8 do 45 znaków", Message::ERROR));  
+        }
+        
+        if(App::getMessages()->getNumberOfErrors()==0)
+            return true;
+        else return false;
+    }
+    
+    private function validateClient($data){
+        
+        if(strlen($data->email)<4 || strlen($data->email)>45){
+            App::getMessages()->addMessage(new Message("Długość e-maila nieprawidłowa - dozwolone od 5 do 45 znaków", Message::ERROR));            
+        }
+        
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        
+        if(strlen($data->imie)>45 || !$exp){
+            App::getMessages()->addMessage(new Message("Format imienia nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
+        }
+        
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        
+        if(strlen($data->nazwisko)>45 || !$exp){
+            App::getMessages()->addMessage(new Message("Format nazwiska nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
+        }
+        
+        $uppercase = preg_match('@[A-Z]@', $data->kod_pocztowy);
+        $lowercase = preg_match('@[a-z]@', $data->kod_pocztowy);
+        $specialChars = preg_match('@[^\w]@', $data->kod_pocztowy);
+  
+        if(strlen($data->kod_pocztowy)>10 || strlen($data->kod_pocztowy)<5  || $uppercase || $lowercase || $specialChars){
+            App::getMessages()->addMessage(new Message("Format kodu pocztowego nieprawidłowy - dozwolone do 10 cyfr (bez myślnika)", Message::ERROR));            
+        }
+        
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        
+        if(strlen($data->miasto)>45 || !$exp){
+            App::getMessages()->addMessage(new Message("Format miasta nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
+        }
+        
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        
+        if(strlen($data->ulica)>45 || !$exp){
+            App::getMessages()->addMessage(new Message("Format ulicy nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
+        }
+        
+  
+        if(strlen($data->numer_lokalu)>10){
+            App::getMessages()->addMessage(new Message("Format numeru lokalu nieprawidłowy - dozwolone do 10 znaków", Message::ERROR));            
+        }
+        
+        if(App::getMessages()->getNumberOfErrors()==0)
+            return true;
+        else false;
+        
+    }
+    
+    private function addUserToDatabase($data) {
+        
+        $db = App::getDB();
+        
+        $db->insert('uzytkownik', ['Id'=>NULL, 
+            'Login'=>$data->login, 
+            'Haslo'=>$data->haslo, 
+            "Rola"=>$data->rola,
+            "Id_klient"=>$data->id_klient]);
+        
+        
+    }
+    
+    private function addClientToDatabase($data) {
+        
+        $db = App::getDB();
+        
+        $db->insert('klient', ['Id'=>NULL, 
+            'Imie'=>$data->imie, 
+            'Nazwisko'=>$data->nazwisko, 
+            'E-mail'=>$data->email, 
+            'Miasto'=>$data->miasto, 
+            'Ulica'=>$data->ulica, 
+            'Numer_lokalu'=>$data->numer_lokalu, 
+            'Kod_pocztowy'=>$data->kod_pocztowy]);
+        
+        return $db->id();
+           
+    }
+    
+    
+    private function returnViev(){
+        
+        App::getSmarty()->assign("clientForm",$this->client); 
+        App::getSmarty()->assign("userForm",$this->user); 
+        App::getSmarty()->assign("userSesion",$this->userSesion);  
         App::getSmarty()->display("RegisterPage.tpl");
         
     }
+    
+    
     
 }
