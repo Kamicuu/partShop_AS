@@ -12,10 +12,11 @@ use core\Message;
 class ParamUtils {
 
     private static function getFrom(&$source, &$idx, &$required, &$required_message, &$index) {
-        if ($required && !isset($source[$idx]))
+        if ($required && empty($source[$idx]))
             App::getMessages()->addMessage(new Message($required_message, Message::ERROR), $index);
-        if (isset($source[$idx]))
+        if (isset($source[$idx])){
             return $source[$idx];
+        }
         return null;
     }
 
