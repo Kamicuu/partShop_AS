@@ -11,7 +11,10 @@
         height: 30px;
     }
     .small_text{
-        font-size: .92rem
+        font-size: .92rem;
+    }
+    .next_button{
+        max-width: 70px;
     }
  </style>
 </head>
@@ -47,30 +50,124 @@
         </div>
     </header>
     <main>
+        <form id="selectionForm" action="{$conf->app_root}/main" method="get"></form>
         <div class="row justify-content-center" id="alert_box">
             {include file="`$smarty.current_dir`\\templates\Alert.tpl"}
         </div>
-        <section class="container py-5 d-flex">
+        <section class="container p-5 flex-column d-flex">
             <div clas="row w-75">
-                <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
-                <hr>
-                <form id="carSelectionForm"></form>
-                <form id="searchProducers" action="/post/dispatch/delete" method="post"></form>
-                <div>
-                    <div class="mb-2 px-1 fw-light small_text">Wybierz markę pojazdu</div>
-                    <select class="form-select form-select-sm" size="5" aria-label="size 5 select example" form="carSelectionForm">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <div class="mt-1 input-group">
-                        <input form="searchProducers" type="text" class="form-control form-control-sm col" id="producer-input" name="producer-input" placeholder="Filtruj marki">
-                        <button form="searchProducers" class="btn btn-outline-secondary" type="submit" id="button-search_producers">Wyszukaj</button>
-                    <div>
+                <div class="row">
+                    <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
+                    <hr> 
+                </row>
+                <div class="col">
+                    <fieldset 
+                        {if $disableProducer}
+                            disabled
+                        {/if}>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz markę pojazdu</div>
+                        <div class="input-group mb-3">
+                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="producer-input">
+                            {foreach $producers as $producer}
+                                <option 
+                                    {if not empty($selectedProducer) && $selectedProducer eq $producer} 
+                                        selected
+                                    {/if}    
+                                    value="{$producer}">{$producer}</option>
+                            {/foreach}
+                        </select>
+                        <button class="btn btn-outline-secondary" form="selectionForm" type="submit"
+                            {if not empty($selectedProducer)} 
+                                disabled
+                            {/if}>-></button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset  
+                        {if $disableModel}
+                            disabled
+                        {/if}>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz model pojazdu</div>
+                        <div class="input-group mb-3">
+                            <select class="form-select form-select-sm" size="5" form="selectionForm" name="model-input">
+                                {foreach $models as $model}
+                                    <option 
+                                        {if not empty($selectedModel) && $selectedModel eq $model} 
+                                            selected
+                                        {/if}    
+                                        value="{$model}">{$model}</option>
+                                {/foreach}
+                            </select>
+                            {if $disableProducer}
+                                <input type="hidden" value="{$selectedProducer}" form="selectionForm" name="producer-input"/>
+                            {/if}
+                            <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                            {if not empty($selectedModel)} 
+                                disabled
+                            {/if}>-></button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset  
+                        {if $disableEngine}
+                            disabled
+                        {/if}>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz wersję pojazdu</div>
+                        <div class="input-group mb-3">
+                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="engine-input">
+                            {foreach $engineVersions as $version}
+                                <option 
+                                    {if not empty($selectedEngineVersionId) && $selectedEngineVersionId eq $version['id']} 
+                                        selected
+                                    {/if}    
+                                    value="{$version['id']}">{$version['engine']}</option>
+                            {/foreach}
+                        </select>
+                        {if $disableModel}
+                            <input type="hidden" value="{$selectedProducer}" form="selectionForm" name="producer-input"/>
+                            <input type="hidden" value="{$selectedModel}" form="selectionForm" name="model-input"/>
+                        {/if}
+                        <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                            {if not empty($selectedEngineVersionId)} 
+                                disabled
+                            {/if}>Zatwierdź</button>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
-
+            <div class="row mt-4">
+                <div class="col">
+                   <div class="mb-2 px-1 fw-light small_text">Wybierz kategorię części</div>
+                </div>  
+            </div>
+            <div class="row">
+                <div class="col justify-content-center d-flex">
+                    <div class="w-100">
+                        <select class="form-select form-select-sm" form="selectionForm" name="category-input">
+                            {foreach $categories as $category}
+                                <option 
+                                    value="{$category['Id']}">{$category['Nazwa']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col justify-content-center d-flex">
+                        <fieldset>
+                            {if $carSelectionComplete eq true}
+                                <input type="hidden" value="true" form="selectionForm" name="startSearch-input"/> 
+                                <input type="hidden" value="{$selectedEngineVersionId}" form="selectionForm" name="carId-input"/> 
+                                <input type="hidden" value="{$selectedCategory}" form="selectionForm" name="categoryId-input"/> 
+                            {else}
+                                <input type="hidden" value="false" form="selectionForm" name="startSearch-input"/>
+                            {/if}
+                        </fieldset>
+                        <button class="row btn btn-secondary w-50" form="selectionForm" type="submit">Wyszukaj częsci do twojego pojazdu</button> 
+                    </div>
+                </div>
+            </div>
         </section> 
     </main>
  </body>

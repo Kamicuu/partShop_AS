@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-22 17:40:35
+/* Smarty version 3.1.33, created on 2022-01-24 21:47:00
   from 'D:\ROZNE\projekt_AS\app\views\MainPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61ec4193843ef6_41417730',
+  'unifunc' => 'content_61ef1e54880892_99200720',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede40b37161ba19ff6040301e47ed235f4d98185' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\MainPage.tpl',
-      1 => 1642873232,
+      1 => 1643060818,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ec4193843ef6_41417730 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61ef1e54880892_99200720 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -36,7 +36,10 @@ function content_61ec4193843ef6_41417730 (Smarty_Internal_Template $_smarty_tpl)
         height: 30px;
     }
     .small_text{
-        font-size: .92rem
+        font-size: .92rem;
+    }
+    .next_button{
+        max-width: 70px;
     }
  </style>
 </head>
@@ -77,31 +80,167 @@ function content_61ec4193843ef6_41417730 (Smarty_Internal_Template $_smarty_tpl)
         </div>
     </header>
     <main>
+        <form id="selectionForm" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/main" method="get"></form>
         <div class="row justify-content-center" id="alert_box">
             <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Alert.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
         </div>
-        <section class="container py-5 d-flex">
+        <section class="container p-5 flex-column d-flex">
             <div clas="row w-75">
-                <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
-                <hr>
-                <form id="carSelectionForm"></form>
-                <form id="searchProducers" action="/post/dispatch/delete" method="post"></form>
-                <div>
-                    <div class="mb-2 px-1 fw-light small_text">Wybierz markę pojazdu</div>
-                    <select class="form-select form-select-sm" size="5" aria-label="size 5 select example" form="carSelectionForm">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <div class="mt-1 input-group">
-                        <input form="searchProducers" type="text" class="form-control form-control-sm col" id="producer-input" name="producer-input" placeholder="Filtruj marki">
-                        <button form="searchProducers" class="btn btn-outline-secondary" type="submit" id="button-search_producers">Wyszukaj</button>
-                    <div>
+                <div class="row">
+                    <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
+                    <hr> 
+                </row>
+                <div class="col">
+                    <fieldset 
+                        <?php if ($_smarty_tpl->tpl_vars['disableProducer']->value) {?>
+                            disabled
+                        <?php }?>>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz markę pojazdu</div>
+                        <div class="input-group mb-3">
+                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="producer-input">
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['producers']->value, 'producer');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['producer']->value) {
+?>
+                                <option 
+                                    <?php if (!empty($_smarty_tpl->tpl_vars['selectedProducer']->value) && $_smarty_tpl->tpl_vars['selectedProducer']->value == $_smarty_tpl->tpl_vars['producer']->value) {?> 
+                                        selected
+                                    <?php }?>    
+                                    value="<?php echo $_smarty_tpl->tpl_vars['producer']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['producer']->value;?>
+</option>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        </select>
+                        <button class="btn btn-outline-secondary" form="selectionForm" type="submit"
+                            <?php if (!empty($_smarty_tpl->tpl_vars['selectedProducer']->value)) {?> 
+                                disabled
+                            <?php }?>>-></button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset  
+                        <?php if ($_smarty_tpl->tpl_vars['disableModel']->value) {?>
+                            disabled
+                        <?php }?>>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz model pojazdu</div>
+                        <div class="input-group mb-3">
+                            <select class="form-select form-select-sm" size="5" form="selectionForm" name="model-input">
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['models']->value, 'model');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['model']->value) {
+?>
+                                    <option 
+                                        <?php if (!empty($_smarty_tpl->tpl_vars['selectedModel']->value) && $_smarty_tpl->tpl_vars['selectedModel']->value == $_smarty_tpl->tpl_vars['model']->value) {?> 
+                                            selected
+                                        <?php }?>    
+                                        value="<?php echo $_smarty_tpl->tpl_vars['model']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['model']->value;?>
+</option>
+                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            </select>
+                            <?php if ($_smarty_tpl->tpl_vars['disableProducer']->value) {?>
+                                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedProducer']->value;?>
+" form="selectionForm" name="producer-input"/>
+                            <?php }?>
+                            <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                            <?php if (!empty($_smarty_tpl->tpl_vars['selectedModel']->value)) {?> 
+                                disabled
+                            <?php }?>>-></button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset  
+                        <?php if ($_smarty_tpl->tpl_vars['disableEngine']->value) {?>
+                            disabled
+                        <?php }?>>
+                        <div class="mb-2 px-1 fw-light small_text">Wybierz wersję pojazdu</div>
+                        <div class="input-group mb-3">
+                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="engine-input">
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['engineVersions']->value, 'version');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['version']->value) {
+?>
+                                <option 
+                                    <?php if (!empty($_smarty_tpl->tpl_vars['selectedEngineVersionId']->value) && $_smarty_tpl->tpl_vars['selectedEngineVersionId']->value == $_smarty_tpl->tpl_vars['version']->value['id']) {?> 
+                                        selected
+                                    <?php }?>    
+                                    value="<?php echo $_smarty_tpl->tpl_vars['version']->value['id'];?>
+"><?php echo $_smarty_tpl->tpl_vars['version']->value['engine'];?>
+</option>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        </select>
+                        <?php if ($_smarty_tpl->tpl_vars['disableModel']->value) {?>
+                            <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedProducer']->value;?>
+" form="selectionForm" name="producer-input"/>
+                            <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedModel']->value;?>
+" form="selectionForm" name="model-input"/>
+                        <?php }?>
+                        <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                            <?php if (!empty($_smarty_tpl->tpl_vars['selectedEngineVersionId']->value)) {?> 
+                                disabled
+                            <?php }?>>Zatwierdź</button>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
-
+            <div class="row mt-4">
+                <div class="col">
+                   <div class="mb-2 px-1 fw-light small_text">Wybierz kategorię części</div>
+                </div>  
+            </div>
+            <div class="row">
+                <div class="col justify-content-center d-flex">
+                    <div class="w-100">
+                        <select class="form-select form-select-sm" form="selectionForm" name="category-input">
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['categories']->value, 'category');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['category']->value) {
+?>
+                                <option 
+                                    value="<?php echo $_smarty_tpl->tpl_vars['category']->value['Id'];?>
+"><?php echo $_smarty_tpl->tpl_vars['category']->value['Nazwa'];?>
+</option>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col justify-content-center d-flex">
+                        <fieldset>
+                            <?php if ($_smarty_tpl->tpl_vars['carSelectionComplete']->value == true) {?>
+                                <input type="hidden" value="true" form="selectionForm" name="startSearch-input"/> 
+                                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedEngineVersionId']->value;?>
+" form="selectionForm" name="carId-input"/> 
+                                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedCategory']->value;?>
+" form="selectionForm" name="categoryId-input"/> 
+                            <?php } else { ?>
+                                <input type="hidden" value="false" form="selectionForm" name="startSearch-input"/>
+                            <?php }?>
+                        </fieldset>
+                        <button class="row btn btn-secondary w-50" form="selectionForm" type="submit">Wyszukaj częsci do twojego pojazdu</button> 
+                    </div>
+                </div>
+            </div>
         </section> 
     </main>
  </body>
