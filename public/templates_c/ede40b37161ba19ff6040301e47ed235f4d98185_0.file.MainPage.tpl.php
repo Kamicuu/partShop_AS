@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-24 21:47:00
+/* Smarty version 3.1.33, created on 2022-01-25 01:24:08
   from 'D:\ROZNE\projekt_AS\app\views\MainPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61ef1e54880892_99200720',
+  'unifunc' => 'content_61ef5138802182_36974070',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede40b37161ba19ff6040301e47ed235f4d98185' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\MainPage.tpl',
-      1 => 1643060818,
+      1 => 1643073846,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ef1e54880892_99200720 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61ef5138802182_36974070 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -82,6 +82,8 @@ function content_61ef1e54880892_99200720 (Smarty_Internal_Template $_smarty_tpl)
     <main>
         <form id="selectionForm" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
 /main" method="get"></form>
+        <form id="generateSearch" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/partList" method="get"></form>
         <div class="row justify-content-center" id="alert_box">
             <?php $_smarty_tpl->_subTemplateRender(((string)dirname($_smarty_tpl->source->filepath))."\\templates\Alert.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
@@ -207,13 +209,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="row">
                 <div class="col justify-content-center d-flex">
                     <div class="w-100">
-                        <select class="form-select form-select-sm" form="selectionForm" name="category-input">
+                        <select class="form-select form-select-sm" form="generateSearch" name="categoryId-input">
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['categories']->value, 'category');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['category']->value) {
 ?>
-                                <option 
+                                <option    
                                     value="<?php echo $_smarty_tpl->tpl_vars['category']->value['Id'];?>
 "><?php echo $_smarty_tpl->tpl_vars['category']->value['Nazwa'];?>
 </option>
@@ -228,16 +230,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <div class="col justify-content-center d-flex">
                         <fieldset>
                             <?php if ($_smarty_tpl->tpl_vars['carSelectionComplete']->value == true) {?>
-                                <input type="hidden" value="true" form="selectionForm" name="startSearch-input"/> 
                                 <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedEngineVersionId']->value;?>
-" form="selectionForm" name="carId-input"/> 
-                                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedCategory']->value;?>
-" form="selectionForm" name="categoryId-input"/> 
-                            <?php } else { ?>
-                                <input type="hidden" value="false" form="selectionForm" name="startSearch-input"/>
+" form="generateSearch" name="carId-input"/> 
                             <?php }?>
                         </fieldset>
-                        <button class="row btn btn-secondary w-50" form="selectionForm" type="submit">Wyszukaj częsci do twojego pojazdu</button> 
+                        <button class="row btn btn-secondary w-50" form="generateSearch" type="submit">
+                            Wyszukaj częsci do twojego pojazdu
+                        </button> 
                     </div>
                 </div>
             </div>

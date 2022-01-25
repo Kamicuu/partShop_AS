@@ -24,15 +24,8 @@ class MainPageCtrl {
     }    
      
     public function action_main() {
-     
-    ;  
     
-    $this->carSelection();
-
-    if(ParamUtils::getFromGet('startSearch-input') == 'true')
-        $partCategoryId = ParamUtils::getFromGet('categoryId-input');
-        $carId = ParamUtils::getFromGet('categoryId-input');
-        echo Utils::URL_noclean('partList', ['carId'=>$carId, 'partCategoryId'=>$partCategoryId, 'filter'=>'']);
+    $this->carSelection();       
 
   }
     
@@ -42,7 +35,6 @@ class MainPageCtrl {
         $db = App::getDB();
         $selectedProducer = ParamUtils::getFromGet("producer-input");
         $selectedModel = ParamUtils::getFromGet('model-input');
-        $selectedCategory = ParamUtils::getFromGet('category-input');
         $this->selectedEngineVersionId = ParamUtils::getFromGet('engine-input');
         
         $producers = array_unique($db->select('model_pojazdu', 'Producent'));
@@ -72,7 +64,6 @@ class MainPageCtrl {
          
         
         App::getSmarty()->assign("categories",$categories );
-        App::getSmarty()->assign("selectedCategory",$selectedCategory );
         App::getSmarty()->assign("producers",$producers ); 
         App::getSmarty()->assign("selectedProducer",$selectedProducer); 
         App::getSmarty()->assign("models",$models);

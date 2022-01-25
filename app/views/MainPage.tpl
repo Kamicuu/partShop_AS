@@ -51,6 +51,7 @@
     </header>
     <main>
         <form id="selectionForm" action="{$conf->app_root}/main" method="get"></form>
+        <form id="generateSearch" action="{$conf->app_root}/partList" method="get"></form>
         <div class="row justify-content-center" id="alert_box">
             {include file="`$smarty.current_dir`\\templates\Alert.tpl"}
         </div>
@@ -145,9 +146,9 @@
             <div class="row">
                 <div class="col justify-content-center d-flex">
                     <div class="w-100">
-                        <select class="form-select form-select-sm" form="selectionForm" name="category-input">
+                        <select class="form-select form-select-sm" form="generateSearch" name="categoryId-input">
                             {foreach $categories as $category}
-                                <option 
+                                <option    
                                     value="{$category['Id']}">{$category['Nazwa']}</option>
                             {/foreach}
                         </select>
@@ -157,14 +158,12 @@
                     <div class="col justify-content-center d-flex">
                         <fieldset>
                             {if $carSelectionComplete eq true}
-                                <input type="hidden" value="true" form="selectionForm" name="startSearch-input"/> 
-                                <input type="hidden" value="{$selectedEngineVersionId}" form="selectionForm" name="carId-input"/> 
-                                <input type="hidden" value="{$selectedCategory}" form="selectionForm" name="categoryId-input"/> 
-                            {else}
-                                <input type="hidden" value="false" form="selectionForm" name="startSearch-input"/>
+                                <input type="hidden" value="{$selectedEngineVersionId}" form="generateSearch" name="carId-input"/> 
                             {/if}
                         </fieldset>
-                        <button class="row btn btn-secondary w-50" form="selectionForm" type="submit">Wyszukaj częsci do twojego pojazdu</button> 
+                        <button class="row btn btn-secondary w-50" form="generateSearch" type="submit">
+                            Wyszukaj częsci do twojego pojazdu
+                        </button> 
                     </div>
                 </div>
             </div>

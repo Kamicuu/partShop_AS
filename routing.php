@@ -16,3 +16,5 @@ Utils::addRoute('doLogout', 'LoginCtrl');
 #tworzenie konta
 Utils::addRoute('createAccount', 'CreateAccountCtrl');
 Utils::addRoute('registerNewUser', 'CreateAccountCtrl');
+#wyszukiwarka części
+Utils::addRoute('partList', 'PartListCtrl');
