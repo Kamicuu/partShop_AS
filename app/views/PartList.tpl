@@ -43,7 +43,7 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="{$conf->app_root}" class="nav-link px-2">Strona główna</a></li>
+              <li><a href="{$conf->app_root}" class="nav-link px-2 link-dark">Strona główna</a></li>
               <li><a href="#" class="nav-link px-2 link-dark">O nas</a></li>
               <li><a href="#" class="nav-link px-2 link-dark">Kontakt</a></li>
             </ul>
@@ -64,15 +64,25 @@
           </div>
         </div>
     </header>
-    <main>
-        <form id="selectionForm" action="{$conf->app_root}/main" method="get"></form>
+    <main>  
+        <form id="searchForm" action="{$conf->app_root}/partList" method="get"></form>
         <div class="row justify-content-center" id="alert_box">
             {include file="`$smarty.current_dir`\\templates\Alert.tpl"}
         </div>
         <section class="container p-5 flex-column d-flex">
             <div clas="row w-75">
                 <div class="row">
-                    <h4 class="mb-4">Lista części</h4>
+                    <div class="col">
+                        <h4 class="mb-4">Lista części</h4>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3 input-group-sm">
+                            <input type="search" value="{$filter}" name="search-input" form="searchForm" class="form-control" placeholder="Wyszukaj części po nazwie lub modelu">
+                            <input type="hidden" value="{$carId}" form="searchForm" name="carId-input"/>  
+                            <input type="hidden" value="{$categoryId}" form="searchForm" name="categoryId-input"/>
+                            <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search">Szukaj</button>
+                        </div>
+                    </div>
                     <hr class="mb-1"> 
                         <div class="row mb-5">
                             <div class="col">
