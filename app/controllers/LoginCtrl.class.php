@@ -7,6 +7,7 @@ use core\Message;
 use core\Utils;
 use core\SessionUtils;
 use core\ParamUtils;
+use core\RoleUtils;
 
 
 class LoginCtrl {
@@ -45,8 +46,17 @@ class LoginCtrl {
     
     public function action_doLogout(){
         
-        if($this->userSesion->role!='guest')
+        if($this->userSesion->role!='guest'){
+            
+            if($this->userSesion->role == 'user'){
+                RoleUtils::removeRole('user');
+            }else if ($this->userSesion->role == 'admin'){
+                RoleUtils::removeRole('admin');
+            }
+        
             SessionUtils::remove('uzytkownik');
+            
+        }
 
         App::getRouter()->redirectTo('main');
     }
@@ -65,7 +75,7 @@ class LoginCtrl {
         
         $db = App::getDB();
          
-        $dbo_user = $db->select('uzytkownik', ['Login', 'Haslo', 'Rola'], ['Login'=>$login_data->username, 'Haslo'=>$login_data->password])[0];
+        $dbo_user = $db->select('uzytkownik', ['Login', 'Haslo', 'Rola', 'Id'], ['Login'=>$login_data->username, 'Haslo'=>$login_data->password])[0];
         
         if(is_null($dbo_user)){
             App::getMessages()->addMessage(new Message("Dane logowania są nieprawidłowe!", Message::ERROR));
@@ -75,8 +85,15 @@ class LoginCtrl {
         $session_user = new \app\dataObjects\SessionData();
         $session_user->role = $dbo_user['Rola'];
         $session_user->username = $dbo_user['Login'];
+        $session_user->id = $dbo_user['Id'];
 
         SessionUtils::storeObject('uzytkownik', $session_user);
+        
+        if($session_user->role == 'user'){
+            RoleUtils::addRole('user');
+        }else if ($session_user->role == 'admin'){
+            RoleUtils::addRole('admin');
+        }
         
         return true;
     }

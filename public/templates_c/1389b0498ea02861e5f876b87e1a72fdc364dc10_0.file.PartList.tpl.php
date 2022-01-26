@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-25 19:58:35
+/* Smarty version 3.1.33, created on 2022-01-25 21:09:47
   from 'D:\ROZNE\projekt_AS\app\views\PartList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f0566bbcba83_37467023',
+  'unifunc' => 'content_61f0671b904b46_86481702',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1389b0498ea02861e5f876b87e1a72fdc364dc10' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\PartList.tpl',
-      1 => 1643140714,
+      1 => 1643141122,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f0566bbcba83_37467023 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61f0671b904b46_86481702 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -70,8 +70,10 @@ function content_61f0566bbcba83_37467023 (Smarty_Internal_Template $_smarty_tpl)
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
 " class="nav-link px-2 link-dark">Strona główna</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">O nas</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">Kontakt</a></li>
+              <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/oNas" class="nav-link px-2 link-dark">O nas</a></li>
+              <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/kontakt" class="nav-link px-2 link-dark">Kontakt</a></li>
             </ul>
 
             <div class="dropdown text-end">
@@ -110,7 +112,7 @@ function content_61f0566bbcba83_37467023 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="col">
                         <div class="input-group mb-3 input-group-sm">
                             <input type="search" value="<?php echo $_smarty_tpl->tpl_vars['filter']->value;?>
-" name="search-input" form="searchForm" class="form-control" placeholder="Wyszukaj części po nazwie">
+" name="search-input" form="searchForm" class="form-control" placeholder="Wyszukaj części po nazwie lub modelu">
                             <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['carId']->value;?>
 " form="searchForm" name="carId-input"/>  
                             <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['categoryId']->value;?>

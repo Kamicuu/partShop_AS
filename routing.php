@@ -18,3 +18,9 @@ Utils::addRoute('createAccount', 'CreateAccountCtrl');
 Utils::addRoute('registerNewUser', 'CreateAccountCtrl');
 #wyszukiwarka części
 Utils::addRoute('partList', 'PartListCtrl');
+#statyczne podstrony
+Utils::addRoute('oNas', 'StaticSitesCtrl');
+Utils::addRoute('kontakt', 'StaticSitesCtrl');
+#edycja uzytkownika
+Utils::addRoute('editProfile', 'ProfileCtrl', ['user', 'admin']);
+Utils::addRoute('deleteProfile', 'ProfileCtrl', ['user', 'admin']);

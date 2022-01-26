@@ -113,7 +113,7 @@ class CreateAccountCtrl {
             App::getMessages()->addMessage(new Message("Format imienia nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
         }
         
-        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->nazwisko);
         
         if(strlen($data->nazwisko)>45 || !$exp){
             App::getMessages()->addMessage(new Message("Format nazwiska nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
@@ -127,13 +127,13 @@ class CreateAccountCtrl {
             App::getMessages()->addMessage(new Message("Format kodu pocztowego nieprawidłowy - dozwolone od 5 do 10 cyfr (bez myślnika)", Message::ERROR));            
         }
         
-        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->miasto);
         
         if(strlen($data->miasto)>45 || !$exp){
             App::getMessages()->addMessage(new Message("Format miasta nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
         }
         
-        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->imie);
+        $exp = preg_match('/^[a-zĄĆĘŁÓŚŻŹąćęłóśżź ]+$/iu', $data->ulica);
         
         if(strlen($data->ulica)>45 || !$exp){
             App::getMessages()->addMessage(new Message("Format ulicy nieprawidłowy - dozwolone do 45 znaków - tylko litery", Message::ERROR));            
@@ -170,7 +170,7 @@ class CreateAccountCtrl {
         $db->insert('klient', ['Id'=>NULL, 
             'Imie'=>$data->imie, 
             'Nazwisko'=>$data->nazwisko, 
-            'E-mail'=>$data->email, 
+            'E_mail'=>$data->email, 
             'Miasto'=>$data->miasto, 
             'Ulica'=>$data->ulica, 
             'Numer_lokalu'=>$data->numer_lokalu, 

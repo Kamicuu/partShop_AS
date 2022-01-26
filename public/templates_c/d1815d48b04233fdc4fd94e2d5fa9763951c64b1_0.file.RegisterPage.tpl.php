@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-22 16:46:24
+/* Smarty version 3.1.33, created on 2022-01-26 01:18:14
   from 'D:\ROZNE\projekt_AS\app\views\RegisterPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61ec34e0a038d2_11137517',
+  'unifunc' => 'content_61f0a156ee8164_97565043',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd1815d48b04233fdc4fd94e2d5fa9763951c64b1' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\RegisterPage.tpl',
-      1 => 1642869921,
+      1 => 1643151537,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ec34e0a038d2_11137517 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61f0a156ee8164_97565043 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -49,8 +49,10 @@ function content_61ec34e0a038d2_11137517 (Smarty_Internal_Template $_smarty_tpl)
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
 " class="nav-link px-2 link-dark">Strona główna</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">O nas</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">Kontakt</a></li>
+              <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/oNas" class="nav-link px-2 link-dark">O nas</a></li>
+              <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/kontakt" class="nav-link px-2 link-dark">Kontakt</a></li>
             </ul>
 
             <div class="dropdown text-end">

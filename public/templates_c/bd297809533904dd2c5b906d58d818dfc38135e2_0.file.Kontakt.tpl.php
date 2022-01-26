@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-25 20:08:48
-  from 'D:\ROZNE\projekt_AS\app\views\Login.tpl' */
+/* Smarty version 3.1.33, created on 2022-01-25 20:08:43
+  from 'D:\ROZNE\projekt_AS\app\views\Kontakt.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f058d00f1d27_81795834',
+  'unifunc' => 'content_61f058cbee3201_08975240',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '81ca42030af63001f0a2fc59a8d06608ac9cd97a' => 
+    'bd297809533904dd2c5b906d58d818dfc38135e2' => 
     array (
-      0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\Login.tpl',
-      1 => 1643141170,
+      0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\Kontakt.tpl',
+      1 => 1643141321,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f058d00f1d27_81795834 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61f058cbee3201_08975240 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
 <head>
  <meta charset="utf-8"/>
- <title>PartShop.pl - logowanie</title>
+ <title>PartShop.pl - o nas</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"><?php echo '</script'; ?>
@@ -52,7 +52,7 @@ function content_61f058d00f1d27_81795834 (Smarty_Internal_Template $_smarty_tpl)
               <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
 /oNas" class="nav-link px-2 link-dark">O nas</a></li>
               <li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
-/kontakt" class="nav-link px-2 link-dark">Kontakt</a></li>
+/kontakt" class="nav-link px-2 link-secondary">Kontakt</a></li>
             </ul>
 
             <div class="dropdown text-end">
@@ -83,26 +83,7 @@ function content_61f058d00f1d27_81795834 (Smarty_Internal_Template $_smarty_tpl)
         <section class="container py-5 d-flex justify-content-center">
             <div class="row w-75">
                 <div class="col">
-                   <h4 class="mb-4">Zaloguj się do konta</h4>
-                   <form method="post" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
-/doLogin">
-                    <h6>Wprowadź dane logowania:</h6>
-                    <hr>
-                    <div class="row mb-2">
-                      <label for="username-input" class="form-label col">Nazwa użytkownika</label>
-                      <input type="text" class="form-control form-control-sm col" id="username-input" name="username-input" required>
-                    </div>
-                    <div class="row mb-2">
-                      <label for="password-input" class="form-label col">Hasło</label>
-                      <input type="password" class="form-control form-control-sm col" id="password-input" name="password-input" required>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col"></div>
-                        <div class="col d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary ">Zaloguj</button>
-                        </div>
-                    </div>
-                  </form>
+                    Sekcja kontakt
                 </div>
             </div>
         </section>
@@ -110,6 +91,8 @@ function content_61f058d00f1d27_81795834 (Smarty_Internal_Template $_smarty_tpl)
  </body>
 
 </html>
+
+
 
 <?php }
 }
