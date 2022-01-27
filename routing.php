@@ -26,3 +26,6 @@ Utils::addRoute('editProfile', 'ProfileCtrl', ['user', 'admin']);
 Utils::addRoute('deleteProfile', 'ProfileCtrl', ['user', 'admin']);
 #podglad zamowien
 Utils::addRoute('showAllOrders', 'AdminElementListsCtrl', 'admin');
+#koszyk
+Utils::addRoute('showCart', 'CartCtrl', 'user');
+Utils::addRoute('createOrder', 'CartCtrl', 'user');

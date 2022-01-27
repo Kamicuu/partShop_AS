@@ -34,7 +34,15 @@
           <p class="fw-bold fs-5 me-4">{math equation=$part['Cena']/100 format="%.2f"} zł</p>
       </div>
       <div class="col justify-content-end d-flex">
-          <button class="btn btn-primary btn-sm me-4">Dodaj do koszyka</button>
+          <form id="addToCartFrom{$part['Id']}" action="{$postUrlAddToCart}" method="post"></form>
+            <span class="me-3" style="margin-top:3px">Ilosć sztuk: </span>
+            <div class="me-3">
+                <input form="addToCartFrom{$part['Id']}" type="hidden" value="{$part['Id']}" name="partId-input">
+                <input form="addToCartFrom{$part['Id']}" type="number" value="1" name="amount-input" class="form-control form-control-sm" style="width: 55px ">
+            </div>
+            <div>
+              <button form="addToCartFrom{$part['Id']}" type="submit" class="btn btn-primary btn-sm me-4">Dodaj do koszyka</button>
+            </div>
       </div>
     </div>
     <small>PartShop.pl</small>

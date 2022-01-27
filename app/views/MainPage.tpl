@@ -60,7 +60,8 @@
                 <div class="row">
                     <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
                     <hr> 
-                </row>
+                </div>
+                <div class="row">
                 <div class="col">
                     <fieldset 
                         {if $disableProducer}
@@ -136,6 +137,7 @@
                             {/if}>Zatwierdź</button>
                         </div>
                     </fieldset>
+                </div>
                 </div>
             </div>
             <div class="row mt-4">

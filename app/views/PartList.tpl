@@ -77,7 +77,7 @@
                     </div>
                     <div class="col">
                         <div class="input-group mb-3 input-group-sm">
-                            <input type="search" value="{$filter}" name="search-input" form="searchForm" class="form-control" placeholder="Wyszukaj części po nazwie lub modelu">
+                            <input type="search" value="{$filter}" form="searchForm" name="search-input" class="form-control" placeholder="Wyszukaj części po nazwie lub modelu">
                             <input type="hidden" value="{$carId}" form="searchForm" name="carId-input"/>  
                             <input type="hidden" value="{$categoryId}" form="searchForm" name="categoryId-input"/>
                             <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search">Szukaj</button>

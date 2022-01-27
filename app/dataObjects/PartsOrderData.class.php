@@ -8,4 +8,5 @@ class PartsOrderData {
     public $cena;
     public $jednostka_miary;
     public $ilosc;
+    public $url_zdjecia;
 } 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-25 20:08:43
+/* Smarty version 3.1.33, created on 2022-01-27 20:55:17
   from 'D:\ROZNE\projekt_AS\app\views\MainPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f058cb5b4eb2_63003282',
+  'unifunc' => 'content_61f306b51f4de1_65718942',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede40b37161ba19ff6040301e47ed235f4d98185' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\MainPage.tpl',
-      1 => 1643141112,
+      1 => 1643316915,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f058cb5b4eb2_63003282 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61f306b51f4de1_65718942 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -95,7 +95,8 @@ function content_61f058cb5b4eb2_63003282 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="row">
                     <h4 class="mb-4">Wyszukaj części do swojego samochodu</h4>
                     <hr> 
-                </row>
+                </div>
+                <div class="row">
                 <div class="col">
                     <fieldset 
                         <?php if ($_smarty_tpl->tpl_vars['disableProducer']->value) {?>
@@ -201,6 +202,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <?php }?>>Zatwierdź</button>
                         </div>
                     </fieldset>
+                </div>
                 </div>
             </div>
             <div class="row mt-4">

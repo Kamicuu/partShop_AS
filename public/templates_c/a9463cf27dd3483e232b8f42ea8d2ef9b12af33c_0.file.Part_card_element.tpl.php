@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-27 18:17:55
+/* Smarty version 3.1.33, created on 2022-01-27 20:09:09
   from 'D:\ROZNE\projekt_AS\app\views\templates\Part_card_element.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f2e1d3d064b9_96205029',
+  'unifunc' => 'content_61f2fbe58e3563_68302116',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a9463cf27dd3483e232b8f42ea8d2ef9b12af33c' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\templates\\Part_card_element.tpl',
-      1 => 1643307467,
+      1 => 1643314144,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f2e1d3d064b9_96205029 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61f2fbe58e3563_68302116 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\smarty\\plugins\\function.math.php','function'=>'smarty_function_math',),));
 ?>
 <li class="list-group-item li_element mb-4" aria-current="true">
@@ -68,7 +68,21 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\
  zł</p>
       </div>
       <div class="col justify-content-end d-flex">
-          <button class="btn btn-primary btn-sm me-4">Dodaj do koszyka</button>
+          <form id="addToCartFrom<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
+" action="<?php echo $_smarty_tpl->tpl_vars['postUrlAddToCart']->value;?>
+" method="post"></form>
+            <span class="me-3" style="margin-top:3px">Ilosć sztuk: </span>
+            <div class="me-3">
+                <input form="addToCartFrom<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
+" type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
+" name="partId-input">
+                <input form="addToCartFrom<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
+" type="number" value="1" name="amount-input" class="form-control form-control-sm" style="width: 55px ">
+            </div>
+            <div>
+              <button form="addToCartFrom<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
+" type="submit" class="btn btn-primary btn-sm me-4">Dodaj do koszyka</button>
+            </div>
       </div>
     </div>
     <small>PartShop.pl</small>
