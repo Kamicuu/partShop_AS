@@ -24,3 +24,5 @@ Utils::addRoute('kontakt', 'StaticSitesCtrl');
 #edycja uzytkownika
 Utils::addRoute('editProfile', 'ProfileCtrl', ['user', 'admin']);
 Utils::addRoute('deleteProfile', 'ProfileCtrl', ['user', 'admin']);
+#podglad zamowien
+Utils::addRoute('showAllOrders', 'AdminElementListsCtrl', 'admin');

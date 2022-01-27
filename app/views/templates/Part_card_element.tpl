@@ -31,7 +31,7 @@
     </table>
     <div class="row flex-column">
       <div class="col justify-content-end d-flex">
-          <p class="fw-bold fs-5 me-4">{$part['Cena']/100} zł</p>
+          <p class="fw-bold fs-5 me-4">{math equation=$part['Cena']/100 format="%.2f"} zł</p>
       </div>
       <div class="col justify-content-end d-flex">
           <button class="btn btn-primary btn-sm me-4">Dodaj do koszyka</button>
