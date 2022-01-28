@@ -54,13 +54,22 @@ class CartCtrl{
         $shippingCost = ParamUtils::getFromPost('kosztPrzesylki-input');
         $payment = ParamUtils::getFromPost('typPlatnosci-input');
         
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+       
+            if(is_null($this->cart) || is_null($this->cart[0])){
+               App::getMessages()->addMessage(new Message("Twój koszyk jest pusty - nie można wykonać zamówienia.", Message::ERROR));
+
+            }else{ 
+                $this->makeOrder($shippingCost, $payment);
+                SessionUtils::remove('koszyk');
+                $this->cart = null;
+                $this->viewCart();
+            }
+        }
         
-        if(is_null($this->cart) || is_null($this->cart[0])){
-           App::getMessages()->addMessage(new Message("Twój koszyk jest pusty - nie można wykonać zamówienia.", Message::ERROR));
-           App::getSmarty()->display("Cart.tpl");
-        }else $this->makeOrder ($shippingCost, $payment);
-        
+        App::getSmarty()->assign("userSesion",$this->userSesion);  
         App::getSmarty()->display("Cart.tpl");
+        
         
     }
     
@@ -146,7 +155,6 @@ class CartCtrl{
                
           }   
           
-        SessionUtils::remove('koszyk');
         App::getMessages()->addMessage(new Message("Zamówienie zostało wysłane.", Message::INFO));
          
     }

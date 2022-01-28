@@ -23,15 +23,18 @@ class AdminElementListsCtrl{
     
     public function action_showAllOrders() {
         
-        $orderData = $this->loadAllOrdersWithParts();
+        $orderData = $this->loadAllOrders();
 
         App::getSmarty()->assign("userSesion",$this->userSesion);    
         App::getSmarty()->assign("orderData",$orderData);  
         App::getSmarty()->display("AdminElementsLists.tpl");
         
+        
+        echo $orderData[1]->czesci_zamowienia[1]->nazwa;
+        
     }
     
-    private function loadAllOrdersWithParts(){
+    private function loadAllOrders(){
         
         $db = App::getDB();
         
@@ -48,7 +51,7 @@ class AdminElementListsCtrl{
         for($i=0; $i<sizeof($dbo_orders); $i++){
             
             $orderObj = new \app\dataObjects\OrderData();
-            $partsOrderObjectArray;
+            $partsOrderObjectArray = array();
                                     
             $orderObj->id = $dbo_orders[$i]['Id'];
             $orderObj->nazwa_zamawiajacego = $dbo_orders[$i]['Imie'].' '.$dbo_orders[$i]['Nazwisko'];
@@ -62,6 +65,11 @@ class AdminElementListsCtrl{
                  '[><]czesci'=>['zamowienie_czesci.Id_czesci'=>'Id']], 
                 ['czesci.Id', 'czesci.Producent', 'czesci.Model', 'czesci.Cena', 'czesci.Jednostka_miary', 'zamowienie_czesci.Ilosc_czesci'],['zamowienie.Id'=>$orderObj->id]);
             
+//            echo $db->debug()->select('zamowienie', 
+//                ['[><]zamowienie_czesci' => ['Id' => 'Id_zamowienie'],
+//                 '[><]czesci'=>['zamowienie_czesci.Id_czesci'=>'Id']], 
+//                ['czesci.Id', 'czesci.Producent', 'czesci.Model', 'czesci.Cena', 'czesci.Jednostka_miary', 'zamowienie_czesci.Ilosc_czesci'],['zamowienie.Id'=>$orderObj->id]);
+            
             for($j=0; $j<sizeof($dbo_parts); $j++){
                 $partObj = new \app\dataObjects\PartsOrderData();
                 
@@ -72,7 +80,7 @@ class AdminElementListsCtrl{
                 $partObj->jednostka_miary = $dbo_parts[$j]['Jednostka_miary']; 
                 
                 $partsOrderObjectArray[$j] = $partObj;
-                        
+                  
             }
             
             $orderObj->czesci_zamowienia = $partsOrderObjectArray;

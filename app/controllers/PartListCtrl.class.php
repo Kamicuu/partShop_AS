@@ -37,17 +37,20 @@ class PartListCtrl {
         $categoryId = ParamUtils::getFromGet('categoryId-input');
         $filter = ParamUtils::getFromGet('search-input');
         
-        if (!empty($carId) && !empty($categoryId)){
+        if (!empty($carId) && $categoryId==999999){
+            $partObjs = $this->loadPartsByCar($carId, $filter);
+            $carName = $db->select('model_pojazdu', ['Producent', 'Model', 'Silnik', 'Rok_produkcji'], ['Id'=>$carId])[0];
+        }else if (!empty($carId) && !empty($categoryId)){
             $partObjs = $this->loadPartsByCategoryAndCar($categoryId, $carId, $filter);
             $categoryName = $db->select('czesci_kategoria', 'Nazwa', ['Id'=>$categoryId])[0];
             $carName = $db->select('model_pojazdu', ['Producent', 'Model', 'Silnik', 'Rok_produkcji'], ['Id'=>$carId])[0];
-        }else if (!empty($categoryId)){
-            $partObjs = $this->loadPartsByCategory($categoryId, $filter);
-            $categoryName = $db->select('czesci_kategoria', 'Nazwa', ['Id'=>$categoryId])[0];
         }else if (!empty($carId)){
             $partObjs = $this->loadPartsByCar($carId, $filter);
             $carName = $db->select('model_pojazdu', ['Producent', 'Model', 'Silnik', 'Rok_produkcji'], ['Id'=>$carId])[0];
-        }else $partObjs = $this->loadAllParts();
+        }else if (!empty($categoryId) && $categoryId!=999999){
+            $partObjs = $this->loadPartsByCategory($categoryId, $filter);
+            $categoryName = $db->select('czesci_kategoria', 'Nazwa', ['Id'=>$categoryId])[0];
+        }else $partObjs = $this->loadAllParts($filter);
         
         
         #adding to cart
@@ -77,11 +80,17 @@ class PartListCtrl {
         
     }
     
-    private function loadAllParts(){
+    private function loadAllParts($filter){
         
         $db = App::getDB();
+        if(!empty($filter)){
         $partObjs = $db->select('czesci', ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"]], 
+                ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"],
+                ["OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
+        }else{
+             $partObjs = $db->select('czesci', ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"]], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"]);
+        }
         
         return $partObjs;
     }
@@ -113,13 +122,13 @@ class PartListCtrl {
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["model_pojazdu.Id"=>$carId]);
+                ["model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
         }else{
             $partObjs = $db->select('czesci', 
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
+                ["model_pojazdu.Id"=>$carId]);
         }
         return $partObjs;
         

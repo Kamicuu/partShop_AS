@@ -29,7 +29,6 @@ class MainPageCtrl {
 
   }
     
-    // return true kiedy wszystkie parametry samochodu są wybrane
     private function carSelection(){
         
         $db = App::getDB();
