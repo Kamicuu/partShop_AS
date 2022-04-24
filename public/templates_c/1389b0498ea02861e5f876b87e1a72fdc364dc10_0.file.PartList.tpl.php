@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-27 19:15:54
+/* Smarty version 3.1.33, created on 2022-04-24 13:07:26
   from 'D:\ROZNE\projekt_AS\app\views\PartList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f2ef6a79e029_58559644',
+  'unifunc' => 'content_62654b8ed28785_93036341',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1389b0498ea02861e5f876b87e1a72fdc364dc10' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\PartList.tpl',
-      1 => 1643310877,
+      1 => 1650805643,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f2ef6a79e029_58559644 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62654b8ed28785_93036341 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -34,6 +34,12 @@ function content_61f2ef6a79e029_58559644 (Smarty_Internal_Template $_smarty_tpl)
  <style>
     #alert_box{
         height: 30px;
+    }
+    #goto_wrapper{
+        width: 150px;
+    }
+    #goto_wrapper input{
+        width: 40px;
     }
     .small_text{
         font-size: .92rem;
@@ -57,6 +63,20 @@ function content_61f2ef6a79e029_58559644 (Smarty_Internal_Template $_smarty_tpl)
         height: 200px;
     }
  </style>
+ <?php echo '<script'; ?>
+>
+    function goToPrevious() {
+        document.getElementById("page-input").value=<?php echo $_smarty_tpl->tpl_vars['pageNum']->value;?>
+-1;
+        document.getElementById("searchForm").submit();
+    }
+    function goToNext() {
+        document.getElementById("page-input").value=<?php echo $_smarty_tpl->tpl_vars['pageNum']->value;?>
++1;
+        document.getElementById("searchForm").submit();
+    }
+<?php echo '</script'; ?>
+>
 </head>
 
 <body>
@@ -161,6 +181,27 @@ foreach ($_from as $_smarty_tpl->tpl_vars['partObj']->value) {
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                       </ul>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="goto_wrapper">
+                            <input type="number" form="searchForm" name="page-input" id="page-input" value="<?php echo $_smarty_tpl->tpl_vars['pageNum']->value;?>
+"/>
+                            <button class="btn btn-outline-secondary btn-sm" form="searchForm" type="submit">Idź do storny</button>
+                        </div>
+                    </div>
+                    <div class="col text-end pe-4">
+                        <button type="button" class="btn btn-link p-0" onclick="goToPrevious()">
+                            <?php if ($_smarty_tpl->tpl_vars['pageNum']->value > 0) {?>
+                            <?php echo $_smarty_tpl->tpl_vars['pageNum']->value-1;?>
+
+                            <?php }?>
+                        </button>
+                        <button type="button" class="btn btn-link p-0 disabled"><?php echo $_smarty_tpl->tpl_vars['pageNum']->value;?>
+</button>
+                        <button type="button" class="btn btn-link p-0" onclick="goToNext()"><?php echo $_smarty_tpl->tpl_vars['pageNum']->value+1;?>
+</button>
+                    </div>
                 </div>
             </div>
         </section> 

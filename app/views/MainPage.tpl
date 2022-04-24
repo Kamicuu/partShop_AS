@@ -17,6 +17,25 @@
         max-width: 70px;
     }
  </style>
+ <script>
+     
+    window.onload = () =>{
+         ackParamButtonChecker();
+    }
+    
+    function ackParamButtonChecker(){
+        
+        let ackButton = document.getElementById("ack_find_params");
+        let engines = document.getElementById("engine-input");
+         
+        if(engines.value===''){
+            ackButton.disabled=true;
+        }else{
+            ackButton.disabled=false;
+        }
+
+    }
+ </script>
 </head>
 
 <body>
@@ -118,7 +137,7 @@
                         {/if}>
                         <div class="mb-2 px-1 fw-light small_text">Wybierz wersję pojazdu</div>
                         <div class="input-group mb-3">
-                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="engine-input">
+                        <select class="form-select form-select-sm" onchange="ackParamButtonChecker()" size="5" form="selectionForm" name="engine-input" id="engine-input">
                             {foreach $engineVersions as $version}
                                 <option 
                                     {if not empty($selectedEngineVersionId) && $selectedEngineVersionId eq $version['id']} 
@@ -131,7 +150,14 @@
                             <input type="hidden" value="{$selectedProducer}" form="selectionForm" name="producer-input"/>
                             <input type="hidden" value="{$selectedModel}" form="selectionForm" name="model-input"/>
                         {/if}
-                        <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                        <button id="ack_find_params" class="btn
+                                {if not empty($selectedEngineVersionId)}
+                                    btn-success
+                                {else}
+                                    btn-outline-secondary 
+                                {/if}" 
+                                form="selectionForm" 
+                                type="submit"
                             {if not empty($selectedEngineVersionId)} 
                                 disabled
                             {/if}>Zatwierdź</button>

@@ -11,6 +11,8 @@ use \Medoo\Medoo;
 
 class PartListCtrl {
     
+    static $displayOnPage = 2;
+    
     function __construct() {
         
        $this->userSesion = SessionUtils::loadObject('uzytkownik', true);
@@ -36,7 +38,17 @@ class PartListCtrl {
         $carId = ParamUtils::getFromGet('carId-input');
         $categoryId = ParamUtils::getFromGet('categoryId-input');
         $filter = ParamUtils::getFromGet('search-input');
+        $pageNum = ParamUtils::getFromGet('page-input');
         
+        #calculate data for pagination
+        if(!isset($pageNum)){
+            $pageNum = 0;
+        }
+        
+        $this->offset = PartListCtrl::$displayOnPage*$pageNum;
+        $this->limit = PartListCtrl::$displayOnPage;
+        
+        #handling for parameters
         if (!empty($carId) && $categoryId==999999){
             $partObjs = $this->loadPartsByCar($carId, $filter);
             $carName = $db->select('model_pojazdu', ['Producent', 'Model', 'Silnik', 'Rok_produkcji'], ['Id'=>$carId])[0];
@@ -52,7 +64,7 @@ class PartListCtrl {
             $categoryName = $db->select('czesci_kategoria', 'Nazwa', ['Id'=>$categoryId])[0];
         }else $partObjs = $this->loadAllParts($filter);
         
-        
+                
         #adding to cart
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
@@ -71,6 +83,7 @@ class PartListCtrl {
         App::getSmarty()->assign("categoryId",$categoryId);
         App::getSmarty()->assign("carId",$carId);
         App::getSmarty()->assign("filter",$filter);
+        App::getSmarty()->assign("pageNum",$pageNum);
         
         App::getSmarty()->assign("categoryName",$categoryName);
         App::getSmarty()->assign("carName",$carName);
@@ -81,15 +94,16 @@ class PartListCtrl {
     }
     
     private function loadAllParts($filter){
-        
+                
         $db = App::getDB();
         if(!empty($filter)){
         $partObjs = $db->select('czesci', ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"]], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"],
-                ["OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
+                ["OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter], "LIMIT" =>[$this->offset, $this->limit]]);
         }else{
              $partObjs = $db->select('czesci', ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"]], 
-                ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"]);
+                ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"],
+                ["LIMIT" =>[$this->offset, $this->limit]]);
         }
         
         return $partObjs;
@@ -102,12 +116,12 @@ class PartListCtrl {
             $partObjs = $db->select('czesci_kategoria', 
                 ["[><]czesci" => ["Id" => "Id_kategoria"]], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["czesci_kategoria.Id" => $categoryId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);   
+                ["czesci_kategoria.Id" => $categoryId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter], "LIMIT" =>[$this->offset, $this->limit]]);   
         }else{
             $partObjs = $db->select('czesci_kategoria', 
                 ["[><]czesci" => ["Id" => "Id_kategoria"]], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["czesci_kategoria.Id" => $categoryId]);
+                ["czesci_kategoria.Id" => $categoryId, "LIMIT" =>[$this->offset, $this->limit]]);
         }
         
         return $partObjs;
@@ -122,13 +136,13 @@ class PartListCtrl {
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
+                ["model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter], "LIMIT" =>[$this->offset, $this->limit]]);
         }else{
             $partObjs = $db->select('czesci', 
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["model_pojazdu.Id"=>$carId]);
+                ["model_pojazdu.Id"=>$carId, "LIMIT" =>[$this->offset, $this->limit]]);
         }
         return $partObjs;
         
@@ -142,21 +156,27 @@ class PartListCtrl {
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["czesci_kategoria.Id" => $categoryId, "model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter]]);
+                ["czesci_kategoria.Id" => $categoryId, "model_pojazdu.Id"=>$carId, "OR" => ["czesci.Producent[~]" => $filter, "czesci.Model[~]" => $filter], "LIMIT" =>[$this->offset, $this->limit]]);
         }
         else{ 
             $partObjs = $db->select('czesci', 
                 ["[><]czesci_kategoria" => ["Id_kategoria" => "Id"], 
                 "[><]model_pojazdu" => ["Id_model_pojazdu" => "Id"] ], 
                 ["czesci.Id", "czesci.Producent", "czesci.Model", "czesci.Cena", "czesci.Jednostka_miary", "czesci.Opis", "czesci.Zamiennik", "czesci.URL_zdjecia", "czesci.Kod_OEM", "czesci_kategoria.Nazwa"], 
-                ["czesci_kategoria.Id" => $categoryId, "model_pojazdu.Id"=>$carId]);
+                ["czesci_kategoria.Id" => $categoryId, "model_pojazdu.Id"=>$carId, "LIMIT" =>[$this->offset, $this->limit]]);
         }
         return $partObjs;
     }
     
      private function addItemToCart($item){
-        
-        
+         
+        #check if registered user  
+        if($this->userSesion->role=='guest'){
+            App::getMessages()->addMessage(new Message("Zaloguj się aby móc dodać produkt do koszyka!", Message::ERROR));
+            return;
+        }
+           
+        #adding to cart
         if(empty($this->cart)){ 
             
             array_push($this->cart, $item);

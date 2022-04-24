@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-27 20:55:17
+/* Smarty version 3.1.33, created on 2022-04-24 13:46:52
   from 'D:\ROZNE\projekt_AS\app\views\MainPage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f306b51f4de1_65718942',
+  'unifunc' => 'content_626554ccc43988_43681904',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede40b37161ba19ff6040301e47ed235f4d98185' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\MainPage.tpl',
-      1 => 1643316915,
+      1 => 1650808007,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f306b51f4de1_65718942 (Smarty_Internal_Template $_smarty_tpl) {
+function content_626554ccc43988_43681904 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -42,6 +42,27 @@ function content_61f306b51f4de1_65718942 (Smarty_Internal_Template $_smarty_tpl)
         max-width: 70px;
     }
  </style>
+ <?php echo '<script'; ?>
+>
+     
+    window.onload = () =>{
+         ackParamButtonChecker();
+    }
+    
+    function ackParamButtonChecker(){
+        
+        let ackButton = document.getElementById("ack_find_params");
+        let engines = document.getElementById("engine-input");
+         
+        if(engines.value===''){
+            ackButton.disabled=true;
+        }else{
+            ackButton.disabled=false;
+        }
+
+    }
+ <?php echo '</script'; ?>
+>
 </head>
 
 <body>
@@ -172,7 +193,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <?php }?>>
                         <div class="mb-2 px-1 fw-light small_text">Wybierz wersję pojazdu</div>
                         <div class="input-group mb-3">
-                        <select class="form-select form-select-sm" size="5" form="selectionForm" name="engine-input">
+                        <select class="form-select form-select-sm" onchange="ackParamButtonChecker()" size="5" form="selectionForm" name="engine-input" id="engine-input">
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['engineVersions']->value, 'version');
 if ($_from !== null) {
@@ -196,7 +217,14 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['selectedModel']->value;?>
 " form="selectionForm" name="model-input"/>
                         <?php }?>
-                        <button class="btn  btn-outline-secondary" form="selectionForm" type="submit"
+                        <button id="ack_find_params" class="btn
+                                <?php if (!empty($_smarty_tpl->tpl_vars['selectedEngineVersionId']->value)) {?>
+                                    btn-success
+                                <?php } else { ?>
+                                    btn-outline-secondary 
+                                <?php }?>" 
+                                form="selectionForm" 
+                                type="submit"
                             <?php if (!empty($_smarty_tpl->tpl_vars['selectedEngineVersionId']->value)) {?> 
                                 disabled
                             <?php }?>>Zatwierdź</button>

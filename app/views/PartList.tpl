@@ -10,6 +10,12 @@
     #alert_box{
         height: 30px;
     }
+    #goto_wrapper{
+        width: 150px;
+    }
+    #goto_wrapper input{
+        width: 40px;
+    }
     .small_text{
         font-size: .92rem;
     }
@@ -32,6 +38,16 @@
         height: 200px;
     }
  </style>
+ <script>
+    function goToPrevious() {
+        document.getElementById("page-input").value={$pageNum}-1;
+        document.getElementById("searchForm").submit();
+    }
+    function goToNext() {
+        document.getElementById("page-input").value={$pageNum}+1;
+        document.getElementById("searchForm").submit();
+    }
+</script>
 </head>
 
 <body>
@@ -111,6 +127,23 @@
                             {include file="`$smarty.current_dir`\\templates\Part_card_element.tpl" part=$partObj}
                         {/foreach}
                       </ul>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="goto_wrapper">
+                            <input type="number" form="searchForm" name="page-input" id="page-input" value="{$pageNum}"/>
+                            <button class="btn btn-outline-secondary btn-sm" form="searchForm" type="submit">Idź do storny</button>
+                        </div>
+                    </div>
+                    <div class="col text-end pe-4">
+                        <button type="button" class="btn btn-link p-0" onclick="goToPrevious()">
+                            {if $pageNum>0}
+                            {$pageNum-1}
+                            {/if}
+                        </button>
+                        <button type="button" class="btn btn-link p-0 disabled">{$pageNum}</button>
+                        <button type="button" class="btn btn-link p-0" onclick="goToNext()">{$pageNum+1}</button>
+                    </div>
                 </div>
             </div>
         </section> 
