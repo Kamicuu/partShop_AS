@@ -29,3 +29,6 @@ Utils::addRoute('showAllOrders', 'AdminElementListsCtrl', 'admin');
 #koszyk
 Utils::addRoute('showCart', 'CartCtrl', 'user');
 Utils::addRoute('createOrder', 'CartCtrl', 'user');
+#szczegóły części
+Utils::addRoute('showPartDetails', 'PartDetails');
+Utils::addRoute('showPartDetailsComments', 'PartDetails');

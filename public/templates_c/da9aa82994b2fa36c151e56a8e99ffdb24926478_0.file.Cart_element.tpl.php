@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-27 22:04:52
+/* Smarty version 3.1.33, created on 2022-05-20 16:39:46
   from 'D:\ROZNE\projekt_AS\app\views\templates\Cart_element.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f31704cc8917_54754655',
+  'unifunc' => 'content_6287c452dcf9c6_38244231',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'da9aa82994b2fa36c151e56a8e99ffdb24926478' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\templates\\Cart_element.tpl',
-      1 => 1643321091,
+      1 => 1653064781,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f31704cc8917_54754655 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6287c452dcf9c6_38244231 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\smarty\\plugins\\function.math.php','function'=>'smarty_function_math',),));
 ?>
 <li class="list-group-item d-flex justify-content-between align-items-center" style="min-width: 468px">
@@ -30,8 +30,10 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\
 " class="img-thumbnail rounded float-end size_130px" alt="Error while loading image">
         </div>
         <div class="w-75 ps-5">
-            <h6><?php echo $_smarty_tpl->tpl_vars['part']->value->nazwa;?>
-</h6>
+            <a style="text-decoration:none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
+/showPartDetails?partId=<?php echo $_smarty_tpl->tpl_vars['part']->value->id;?>
+"><h6><?php echo $_smarty_tpl->tpl_vars['part']->value->nazwa;?>
+</h6></a>
             <table class="table table-sm w-75">
                 <tr>
                     <td class="cart_table_cell">Id</td>

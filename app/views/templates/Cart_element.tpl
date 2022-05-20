@@ -4,7 +4,7 @@
             <img src="{$part->url_zdjecia}" class="img-thumbnail rounded float-end size_130px" alt="Error while loading image">
         </div>
         <div class="w-75 ps-5">
-            <h6>{$part->nazwa}</h6>
+            <a style="text-decoration:none" href="{$conf->app_root}/showPartDetails?partId={$part->id}"><h6>{$part->nazwa}</h6></a>
             <table class="table table-sm w-75">
                 <tr>
                     <td class="cart_table_cell">Id</td>

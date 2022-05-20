@@ -168,7 +168,7 @@ class PartListCtrl {
         return $partObjs;
     }
     
-     private function addItemToCart($item){
+    private function addItemToCart($item){
          
         #check if registered user  
         if($this->userSesion->role=='guest'){

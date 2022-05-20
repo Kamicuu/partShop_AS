@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-05-20 16:11:56
-  from 'D:\ROZNE\projekt_AS\app\views\templates\Part_card_element.tpl' */
+/* Smarty version 3.1.33, created on 2022-05-20 16:34:28
+  from 'D:\ROZNE\projekt_AS\app\views\templates\Part_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6287bdcc12b0c1_37488911',
+  'unifunc' => 'content_6287c3147152d2_18197790',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'a9463cf27dd3483e232b8f42ea8d2ef9b12af33c' => 
+    '3dab6d2c1768fd9649e163d24a87ce8672f8e9b4' => 
     array (
-      0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\templates\\Part_card_element.tpl',
-      1 => 1653063113,
+      0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\templates\\Part_detail.tpl',
+      1 => 1653064466,
       2 => 'file',
     ),
   ),
@@ -20,16 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6287bdcc12b0c1_37488911 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6287c3147152d2_18197790 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\smarty\\plugins\\function.math.php','function'=>'smarty_function_math',),));
 ?>
-<li class="list-group-item li_element mb-4" aria-current="true">
+<div class="list-group-item">
     <div class="d-flex w-100 justify-content-between">
-        <a style="text-decoration:none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_root;?>
-/showPartDetails?partId=<?php echo $_smarty_tpl->tpl_vars['part']->value['Id'];?>
-"><h5 class="mb-2"><?php echo $_smarty_tpl->tpl_vars['part']->value['Producent'];?>
+        <h5 class="mb-2"><?php echo $_smarty_tpl->tpl_vars['part']->value['Producent'];?>
  <span class="text-muted"><?php echo $_smarty_tpl->tpl_vars['part']->value['Model'];?>
-</span></h5></a>
+</span></h5>
     </div>
       <img src="<?php echo $_smarty_tpl->tpl_vars['part']->value['URL_zdjecia'];?>
 " class="img-thumbnail rounded float-end size-200px" alt="Error while loading image">
@@ -37,10 +35,6 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\
 </p>
     <table class="table table_spec my-3"  style="width:300px">
         <tbody>
-            <tr>
-                <td class="table_spec_cel">Kategoria: </td><td class="table_spec_cel"><?php echo $_smarty_tpl->tpl_vars['part']->value['Nazwa'];?>
-</td>
-            </tr>
             <tr>
                 <td class="table_spec_cel">Jednostka miary: </td><td class="table_spec_cel"><?php echo $_smarty_tpl->tpl_vars['part']->value['Jednostka_miary'];?>
 </td>
@@ -88,6 +82,6 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\ROZNE\\projekt_AS\\lib\\
       </div>
     </div>
     <small>PartShop.pl</small>
-</li>
+</div>
 <?php }
 }
