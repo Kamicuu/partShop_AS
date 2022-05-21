@@ -12,7 +12,7 @@ use \Medoo\Medoo;
 class PartListCtrl {
     
     static $displayOnPage = 2;
-    
+   
     function __construct() {
         
        $this->userSesion = SessionUtils::loadObject('uzytkownik', true);
@@ -37,6 +37,7 @@ class PartListCtrl {
         $db = App::getDB();
         $carId = ParamUtils::getFromGet('carId-input');
         $categoryId = ParamUtils::getFromGet('categoryId-input');
+        $searchingByButton = ParamUtils::getFromGet('searchByButton-input');
         $filter = ParamUtils::getFromGet('search-input');
         $pageNum = ParamUtils::getFromGet('page-input');
         
@@ -45,6 +46,11 @@ class PartListCtrl {
             $pageNum = 0;
         }
         
+        #goto first page when clicked button search
+        if($searchingByButton=="true"){
+            $pageNum = 0;
+        }
+                        
         $this->offset = PartListCtrl::$displayOnPage*$pageNum;
         $this->limit = PartListCtrl::$displayOnPage;
         

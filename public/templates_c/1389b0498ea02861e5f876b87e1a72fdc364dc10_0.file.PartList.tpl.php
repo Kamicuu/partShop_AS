@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-04-24 13:07:26
+/* Smarty version 3.1.33, created on 2022-05-21 00:40:34
   from 'D:\ROZNE\projekt_AS\app\views\PartList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_62654b8ed28785_93036341',
+  'unifunc' => 'content_62883502d59948_83936938',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1389b0498ea02861e5f876b87e1a72fdc364dc10' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\PartList.tpl',
-      1 => 1650805643,
+      1 => 1653093626,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62654b8ed28785_93036341 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62883502d59948_83936938 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -74,6 +74,9 @@ function content_62654b8ed28785_93036341 (Smarty_Internal_Template $_smarty_tpl)
         document.getElementById("page-input").value=<?php echo $_smarty_tpl->tpl_vars['pageNum']->value;?>
 +1;
         document.getElementById("searchForm").submit();
+    }
+    function setSearchByButton() {
+        document.getElementById("searchByButton-input").value="true";
     }
 <?php echo '</script'; ?>
 >
@@ -137,7 +140,8 @@ function content_62654b8ed28785_93036341 (Smarty_Internal_Template $_smarty_tpl)
 " form="searchForm" name="carId-input"/>  
                             <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['categoryId']->value;?>
 " form="searchForm" name="categoryId-input"/>
-                            <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search">Szukaj</button>
+                            <input type="hidden" value="false" form="searchForm" id="searchByButton-input" name="searchByButton-input"/>
+                            <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search" onclick="setSearchByButton()">Szukaj</button>
                         </div>
                     </div>
                     <hr class="mb-1"> 

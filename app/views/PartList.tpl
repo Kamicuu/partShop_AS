@@ -47,6 +47,9 @@
         document.getElementById("page-input").value={$pageNum}+1;
         document.getElementById("searchForm").submit();
     }
+    function setSearchByButton() {
+        document.getElementById("searchByButton-input").value="true";
+    }
 </script>
 </head>
 
@@ -96,7 +99,8 @@
                             <input type="search" value="{$filter}" form="searchForm" name="search-input" class="form-control" placeholder="Wyszukaj części po nazwie lub modelu">
                             <input type="hidden" value="{$carId}" form="searchForm" name="carId-input"/>  
                             <input type="hidden" value="{$categoryId}" form="searchForm" name="categoryId-input"/>
-                            <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search">Szukaj</button>
+                            <input type="hidden" value="false" form="searchForm" id="searchByButton-input" name="searchByButton-input"/>
+                            <button form="searchForm" class="btn btn-outline-secondary" type="submit" id="button-search" onclick="setSearchByButton()">Szukaj</button>
                         </div>
                     </div>
                     <hr class="mb-1"> 
