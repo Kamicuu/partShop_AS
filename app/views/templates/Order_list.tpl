@@ -1,4 +1,4 @@
-<table class="table mt-3">
+<table class="table mt-3" id="order_table">
     <caption>Lista zamówień</caption>
     <thead>
       <tr>
@@ -12,14 +12,7 @@
     </thead>
     <tbody>
       {foreach $orders as $order}
-      <tr class="table-active">
-        <th scope="row">{$order->id}</th>
-        <td>{$order->data}</td>
-        <td>{$order->nazwa_zamawiajacego}</td>
-        <td>{math equation=$order->wartosc_zamowienia/100 format="%.2f"} zł</td>
-        <td>{math equation=$order->koszt_przesylki/100 format="%.2f"} zł</td>
-        <td>{$order->status}</td>
-      </tr>
+      {include file="`$smarty.current_dir`\Order_list_header_order.tpl"}
       <tr>
         <td colspan="7">
             <table class="table ms-1 table-sm table-light">

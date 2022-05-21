@@ -3,11 +3,12 @@
 namespace app\controllers;
 
 use core\App;
-use core\Message;
-use core\Utils;
+use core\ParamUtils;
 use core\SessionUtils;
 
 class AdminElementListsCtrl{
+    
+    private $orderStatuses = ['w przygotowaniu', 'wysłane', 'anulowane'];
     
     function __construct() {
         
@@ -24,14 +25,84 @@ class AdminElementListsCtrl{
     public function action_showAllOrders() {
         
         $orderData = $this->loadAllOrders();
-
+        
         App::getSmarty()->assign("userSesion",$this->userSesion);    
-        App::getSmarty()->assign("orderData",$orderData);  
+        App::getSmarty()->assign("orderData",$orderData);
+        App::getSmarty()->assign("orderStatuses",$this->orderStatuses);  
         App::getSmarty()->display("AdminElementsLists.tpl");
         
         
-        echo $orderData[1]->czesci_zamowienia[1]->nazwa;
+    }
+    
+    public function action_changeOrderStatus(){
         
+        #update status
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            $orderId = ParamUtils::getFromPost("orderId");
+            $status = ParamUtils::getFromPost("status");
+
+            $this->changeOrderStatus($orderId, $status);
+            $updatedOrder = $this->loadSingleOrderHeader($orderId);
+            
+            App::getSmarty()->assign("order", $updatedOrder);
+            App::getSmarty()->assign("orderStatuses",$this->orderStatuses);  
+            App::getSmarty()->display("Order_list_header_order.tpl");
+        }
+           
+    }
+    
+    public function action_archivizeOrder(){
+        
+        #archivize order
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
+            $orderId = ParamUtils::getFromPost("orderId");
+
+            $this->archivizeOrder($orderId);
+            
+            $orderData = $this->loadAllOrders();
+            
+            App::getSmarty()->assign("orders",$orderData);
+            App::getSmarty()->assign("orderStatuses",$this->orderStatuses);  
+            App::getSmarty()->display("Order_list.tpl");
+        }
+        
+    }
+    
+    private function changeOrderStatus($orderId, $orderStatus){
+        
+        $db = App::getDB();
+        
+        $db->update('zamowienie', ['Status'=>$orderStatus], ['Id' => $orderId]);
+        
+    }
+    
+    private function archivizeOrder($orderId){
+        
+        $db = App::getDB();
+        
+        $db->update('zamowienie', ['Do_archiwizacji'=>1], ['Id' => $orderId]);
+    }
+    
+    private function loadSingleOrderHeader($orderId){
+        $db = App::getDB();
+         
+        $updatedOrder = $db->select('zamowienie', 
+               ["[><]klient" => ["Id_klient_zam" => "Id"]],
+               ['zamowienie.Id', 'zamowienie.Data', 'zamowienie.Wartosc_zamowienia', 'zamowienie.Koszt_przesylki', 'zamowienie.Status', 'klient.Imie', 'klient.Nazwisko'],
+               ['zamowienie.Id'=>$orderId])[0];
+        
+        $remapedOrder = new \stdClass();
+
+        $remapedOrder->id = $updatedOrder['Id'];
+        $remapedOrder->wartosc_zamowienia = $updatedOrder['Wartosc_zamowienia'];
+        $remapedOrder->koszt_przesylki = $updatedOrder['Koszt_przesylki'];
+        $remapedOrder->data = $updatedOrder['Data'];
+        $remapedOrder->status = $updatedOrder['Status'];
+        $remapedOrder->nazwa_zamawiajacego = $updatedOrder['Imie'].' '.$updatedOrder['Nazwisko'];
+        
+        return $remapedOrder;
     }
     
     private function loadAllOrders(){
@@ -42,7 +113,8 @@ class AdminElementListsCtrl{
          
         $dbo_orders = $db->select('zamowienie', 
                 ["[><]klient" => ["Id_klient_zam" => "Id"]],
-                ['zamowienie.Id', 'zamowienie.Data', 'zamowienie.Wartosc_zamowienia', 'zamowienie.Koszt_przesylki', 'zamowienie.Status', 'klient.Imie', 'klient.Nazwisko']);
+                ['zamowienie.Id', 'zamowienie.Data', 'zamowienie.Wartosc_zamowienia', 'zamowienie.Koszt_przesylki', 'zamowienie.Status', 'klient.Imie', 'klient.Nazwisko'],
+                ['zamowienie.Do_archiwizacji'=>0]);
         
 //        echo $db->debug()->select('zamowienie', 
 //                ["[><]klient" => ["Id_klient_zam" => "Id"]],

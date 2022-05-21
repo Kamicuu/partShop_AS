@@ -73,6 +73,10 @@
                       <label for="password-input" class="form-label col">Hasło</label>
                       <input type="password" class="form-control form-control-sm col" id="password-input" name="password-input" required>
                     </div>
+                    <div class="row mb-2">
+                      <label for="password-input" class="form-label col">Powtórz hasło</label>
+                      <input type="password" class="form-control form-control-sm col" id="password-input-conf" name="password-input-conf" required>
+                    </div>
                     <h6 class="mt-4">Dane do zamówienia:</h6>
                     <hr>
                     <div class="row mb-2">

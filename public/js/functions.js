@@ -56,3 +56,21 @@ function ajaxReloadElement(id_element,url,interval=0) {
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
+//Modyfikacja ajaxPostForm z zapytaniem czy na pewno chcesz wykonać operację
+function ajaxPostFormWithConfirmation(id_form,url,id_to_reload)
+{
+    var confirmOperation = confirm("Czy na pewno chcesz wykonać tą operację?");
+    
+    var form = document.getElementById(id_form);
+    var formData = new FormData(form); 
+    var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function() {
+		if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			document.getElementById(id_to_reload).innerHTML = xmlHttp.responseText;
+		}
+	}
+    if(confirmOperation){    
+        xmlHttp.open("POST", url, true); 
+        xmlHttp.send(formData); 
+    }
+}

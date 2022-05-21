@@ -49,6 +49,7 @@ class CreateAccountCtrl {
           
        $this->user->login = ParamUtils::getFromPost("username-input",true,"Nie podano loginu");
        $this->user->haslo = ParamUtils::getFromPost("password-input",true,"Nie podano hasła");
+       $this->user->haslo_conf = ParamUtils::getFromPost("password-input-conf",true,"Nie podano hasła");
        $this->user->rola = 'user';
        
        
@@ -94,6 +95,8 @@ class CreateAccountCtrl {
         
         if(!$number || !$lowercase || $lenght<8 || $lenght>45){
             App::getMessages()->addMessage(new Message("Hasło nie spełnia wymogów bezpieczeństwa - a-z, 0-9, od 8 do 45 znaków", Message::ERROR));  
+        }else if($data->haslo!=$data->haslo_conf){
+            App::getMessages()->addMessage(new Message("Podane hasła nie są takie same!", Message::ERROR)); 
         }
         
         if(App::getMessages()->getNumberOfErrors()==0)

@@ -175,6 +175,12 @@ class PartListCtrl {
             App::getMessages()->addMessage(new Message("Zaloguj się aby móc dodać produkt do koszyka!", Message::ERROR));
             return;
         }
+        
+        #check if item ammout is positive
+        if($item['amount']<=0){
+            App::getMessages()->addMessage(new Message("Ilość musi być większa od 0.", Message::ERROR));
+            return;
+        }
            
         #adding to cart
         if(empty($this->cart)){ 

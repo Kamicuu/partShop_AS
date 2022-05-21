@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-26 00:48:06
+/* Smarty version 3.1.33, created on 2022-05-20 20:51:22
   from 'D:\ROZNE\projekt_AS\app\views\ProfileDetails.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f09a460c0815_95548818',
+  'unifunc' => 'content_6287ff4ad25064_35085843',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bf0bb750731aa7b595778773776c4541e00116f2' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\ProfileDetails.tpl',
-      1 => 1643158082,
+      1 => 1653079877,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f09a460c0815_95548818 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6287ff4ad25064_35085843 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -112,6 +112,10 @@ function content_61f09a460c0815_95548818 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="row mb-2">
                       <label for="password-input" class="form-label col">Hasło</label>
                       <input type="password" class="form-control form-control-sm col" id="password-input" name="password-input">
+                    </div>
+                     <div class="row mb-2">
+                      <label for="password-input" class="form-label col">Powtórz hasło</label>
+                      <input type="password" class="form-control form-control-sm col" id="password-conf-input" name="password-conf-input">
                     </div>
                     <h6 class="mt-4">Dane do zamówienia:</h6>
                     <hr>

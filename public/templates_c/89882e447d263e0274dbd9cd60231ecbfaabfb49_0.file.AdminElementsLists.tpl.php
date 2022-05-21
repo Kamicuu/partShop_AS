@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2022-01-27 17:01:49
+/* Smarty version 3.1.33, created on 2022-05-20 22:47:38
   from 'D:\ROZNE\projekt_AS\app\views\AdminElementsLists.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61f2cffd323751_79245249',
+  'unifunc' => 'content_62881a8a907176_08730109',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89882e447d263e0274dbd9cd60231ecbfaabfb49' => 
     array (
       0 => 'D:\\ROZNE\\projekt_AS\\app\\views\\AdminElementsLists.tpl',
-      1 => 1643302906,
+      1 => 1653086852,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61f2cffd323751_79245249 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62881a8a907176_08730109 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 
@@ -30,6 +30,9 @@ function content_61f2cffd323751_79245249 (Smarty_Internal_Template $_smarty_tpl)
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"><?php echo '</script'; ?>
+>
+ <?php echo '<script'; ?>
+ src="/public/js/functions.js"><?php echo '</script'; ?>
 >
  <style>
     #alert_box{
