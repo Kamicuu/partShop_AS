@@ -15,6 +15,7 @@ class App {
     private static $router = null;
     private static $smarty = null;
     private static $db = null;
+    private static $recaptcha = null;
 
     private function __construct() {
         
@@ -164,6 +165,14 @@ class App {
             }
         }
         return self::$db;
+    }
+    
+    public static function &getReCaptcha(): \ReCaptchaLib\ReCaptcha {
+        if (!isset(self::$recaptcha)) {
+            require_once self::$config->root_path . '/lib/recaptcha/recaptchalib.php';
+            self::$recaptcha = new \ReCaptchaLib\ReCaptcha("***REMOVED***");
+        }
+        return self::$recaptcha;
     }
 
 }

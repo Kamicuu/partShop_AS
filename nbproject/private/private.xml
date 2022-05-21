@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/ROZNE/projekt_AS/app/views/templates/Order_list_header_order.tpl</file>
+            <file>file:/D:/ROZNE/projekt_AS/routing.php</file>
+            <file>file:/D:/ROZNE/projekt_AS/app/views/PartList.tpl</file>
+            <file>file:/D:/ROZNE/projekt_AS/app/controllers/PartListCtrl.class.php</file>
+            <file>file:/D:/ROZNE/projekt_AS/app/controllers/AdminElementListsCtrl.class.php</file>
+            <file>file:/D:/ROZNE/projekt_AS/public/js/functions.js</file>
+            <file>file:/D:/ROZNE/projekt_AS/app/views/templates/Order_list.tpl</file>
+        </group>
     </open-files>
 </project-private>

@@ -6,9 +6,24 @@
  <title>PartShop.pl - o nas</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ <script src="https://www.google.com/recaptcha/api.js"></script>
  <style>
     #alert_box{
         height: 30px;
+    }
+    .form_container{
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 17%;
+        margin-right: 17%;
+        background-color: #f7f7f9;
+        min-width: 1000px;    
+    }
+    #kontakt_info{
+        position:relative; 
+        margin:auto; 
+        width:380px;
+        text-align: justify;
     }
  </style>
 </head>
@@ -49,9 +64,42 @@
         </div>
         <section class="container py-5 d-flex justify-content-center">
             <div class="row w-75">
-                <div class="col">
-                    Sekcja kontakt
-                </div>
+                <div class="h-100 p-5 border rounded-3 backgroud-light-opacity-50">
+                        <h2 class="mb-4">Dane kontaktowe</h2>
+                        <div class="d-flex justify-content-center">
+                            <p class="small-font me-auto" style="min-width: 100px;">
+                                PartShop sp. z o.o.
+                                <br>
+                                NIP 9999888877
+                                <br>
+                                REGON 666554433   
+                            </p>
+
+                            <p class="small-font">
+                                <span><a href="mailto:kontakt@partshop.pl">kontakt@partshop.pl</a></span>
+                                <br>
+                                <span id="y">+48 111 222 333</span>
+                            </p>
+                        </div>
+                        <p>Zapraszam do współpracy, wyślij zapytanie:</p>
+                        <form id="contact_form" method="post" action="">
+                            <div class="input-group input-group-sm flex-nowrap mt-2">
+                                <span class="input-group-text" id="addon-wrapping">Temat</span>
+                                <input type="text" class="form-control" placeholder="Temat zapytania" name="topic" value="{$formData->temat}">  
+                            </div>
+                            <div class="input-group input-group-sm mt-2">
+                                <span class="input-group-text"style="min-width: 55.22px;" >Treść</span>
+                                <textarea class="form-control" placeholder="Wprowadź treść zapytania" name="description">{$formData->wiadomosc}</textarea>
+                            </div>
+                            <div class="input-group input-group-sm flex-nowrap mt-2">
+                                <span class="input-group-text" id="addon-wrapping" style="min-width: 55.22px;">@</span>
+                                <input type="text" class="form-control" placeholder="Adres e-mail" name="e-mail" value="{$formData->email}">  
+                            </div>
+                            <div id="emailHelp" class="form-text">Nie udostępnimy nikomu twojego e-maila</div>
+                            <div class="g-recaptcha mt-3" data-theme="light" data-sitekey="***REMOVED***"></div>
+                            <button class="btn btn-outline-primary primary-color-bg-hover mt-1" type="submit" name="submit" id="form_send_bnt">Wyślij</button>
+                        </form>                        
+                    </div>
             </div>
         </section>
     </main>
