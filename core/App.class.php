@@ -170,7 +170,7 @@ class App {
     public static function &getReCaptcha(): \ReCaptchaLib\ReCaptcha {
         if (!isset(self::$recaptcha)) {
             require_once self::$config->root_path . '/lib/recaptcha/recaptchalib.php';
-            self::$recaptcha = new \ReCaptchaLib\ReCaptcha("***REMOVED***");
+            self::$recaptcha = new \ReCaptchaLib\ReCaptcha("6LdVygkgAAAAAMMwY2oTHPI72d64ItfqvJ_0GBZA");
         }
         return self::$recaptcha;
     }

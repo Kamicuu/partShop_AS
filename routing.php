@@ -34,3 +34,6 @@ Utils::addRoute('createOrder', 'CartCtrl', 'user');
 #szczegóły części
 Utils::addRoute('showPartDetails', 'PartDetails');
 Utils::addRoute('showPartDetailsComments', 'PartDetails');
+#lista uzytkownikaów
+Utils::addRoute('clientList', 'ClientListCtrl', 'admin');
+Utils::addRoute('showPartClientList', 'ClientListCtrl', 'admin');

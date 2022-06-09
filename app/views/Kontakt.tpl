@@ -96,7 +96,7 @@
                                 <input type="text" class="form-control" placeholder="Adres e-mail" name="e-mail" value="{$formData->email}">  
                             </div>
                             <div id="emailHelp" class="form-text">Nie udostępnimy nikomu twojego e-maila</div>
-                            <div class="g-recaptcha mt-3" data-theme="light" data-sitekey="***REMOVED***"></div>
+                            <div class="g-recaptcha mt-3" data-theme="light" data-sitekey="6LdVygkgAAAAAD-iX_xtz4rWrEs4-LqBikAyT5_a"></div>
                             <button class="btn btn-outline-primary primary-color-bg-hover mt-1" type="submit" name="submit" id="form_send_bnt">Wyślij</button>
                         </form>                        
                     </div>
